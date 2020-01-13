@@ -1,14 +1,12 @@
 package com.example.test.controller;
 
-import com.example.test.utils.PropertiesUtils;
-import com.taobao.diamond.manager.DiamondManager;
-import com.taobao.diamond.manager.ManagerListener;
-import com.taobao.diamond.manager.impl.DefaultDiamondManager;
+import com.example.test.utils.DateUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.Executor;
+import java.math.BigDecimal;
+import java.util.Date;
 
 
 /**
@@ -17,28 +15,24 @@ import java.util.concurrent.Executor;
  * @Date 2019/12/14 5:11 PM
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/love")
 public class testController {
 
-    @GetMapping("/test")
+    @GetMapping("/timeDistance")
     public String test() {
 
-        String result = PropertiesUtils.getPropValue("server.port");
+        //获取两个时间的时间差
+        int days = DateUtils.daysBetween(DateUtils.getDateYYYYMMdd("2019-10-16"), new Date());
 
+        return "傻白甜，这是我们在一起的第"+days+"天哦, 好爱好爱你！！！么么哒";
+    }
 
-       DiamondManager manager = new DefaultDiamondManager("1", new ManagerListener() {
-            @Override
-            public Executor getExecutor() {
-                return null;
-            }
+    public static void main(String[] args) {
 
-            @Override
-            public void receiveConfigInfo(String configInfo) {
-                System.out.println("receive config: " + configInfo);
-            }
-        });
+        BigDecimal value = new BigDecimal(0.035);
 
-        return "哇卡卡卡，你好坏啊，我好喜欢啊";
+        System.out.println(value.compareTo(BigDecimal.ZERO) == 0);
+
     }
 
 }
