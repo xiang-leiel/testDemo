@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.DmCsGjMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.DmCsGj">
+    <!--@mbg.generated-->
+    <!--@Table dm_cs_gj-->
+    <id column="gj_dm" jdbcType="INTEGER" property="gjDm" />
+    <result column="gjywmc" jdbcType="VARCHAR" property="gjywmc" />
+    <result column="gjmc" jdbcType="VARCHAR" property="gjmc" />
+    <result column="gjewzm_dm" jdbcType="VARCHAR" property="gjewzmDm" />
+    <result column="gjswzm_dm" jdbcType="VARCHAR" property="gjswzmDm" />
+    <result column="qybj" jdbcType="INTEGER" property="qybj" />
+    <result column="czrq" jdbcType="TIMESTAMP" property="czrq" />
+    <result column="xgrq" jdbcType="TIMESTAMP" property="xgrq" />
+    <result column="user_dm" jdbcType="INTEGER" property="userDm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    gj_dm, gjywmc, gjmc, gjewzm_dm, gjswzm_dm, qybj, czrq, xgrq, user_dm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from dm_cs_gj
+    where gj_dm = #{gjDm,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from dm_cs_gj
+    where gj_dm = #{gjDm,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.quantchi.tianji.service.search.model.DmCsGj">
+    <!--@mbg.generated-->
+    insert into dm_cs_gj (gj_dm, gjywmc, gjmc, 
+      gjewzm_dm, gjswzm_dm, qybj, 
+      czrq, xgrq, user_dm
+      )
+    values (#{gjDm,jdbcType=INTEGER}, #{gjywmc,jdbcType=VARCHAR}, #{gjmc,jdbcType=VARCHAR}, 
+      #{gjewzmDm,jdbcType=VARCHAR}, #{gjswzmDm,jdbcType=VARCHAR}, #{qybj,jdbcType=INTEGER}, 
+      #{czrq,jdbcType=TIMESTAMP}, #{xgrq,jdbcType=TIMESTAMP}, #{userDm,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.quantchi.tianji.service.search.model.DmCsGj">
+    <!--@mbg.generated-->
+    insert into dm_cs_gj
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gjDm != null">
+        gj_dm,
+      </if>
+      <if test="gjywmc != null">
+        gjywmc,
+      </if>
+      <if test="gjmc != null">
+        gjmc,
+      </if>
+      <if test="gjewzmDm != null">
+        gjewzm_dm,
+      </if>
+      <if test="gjswzmDm != null">
+        gjswzm_dm,
+      </if>
+      <if test="qybj != null">
+        qybj,
+      </if>
+      <if test="czrq != null">
+        czrq,
+      </if>
+      <if test="xgrq != null">
+        xgrq,
+      </if>
+      <if test="userDm != null">
+        user_dm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gjDm != null">
+        #{gjDm,jdbcType=INTEGER},
+      </if>
+      <if test="gjywmc != null">
+        #{gjywmc,jdbcType=VARCHAR},
+      </if>
+      <if test="gjmc != null">
+        #{gjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="gjewzmDm != null">
+        #{gjewzmDm,jdbcType=VARCHAR},
+      </if>
+      <if test="gjswzmDm != null">
+        #{gjswzmDm,jdbcType=VARCHAR},
+      </if>
+      <if test="qybj != null">
+        #{qybj,jdbcType=INTEGER},
+      </if>
+      <if test="czrq != null">
+        #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        #{userDm,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.DmCsGj">
+    <!--@mbg.generated-->
+    update dm_cs_gj
+    <set>
+      <if test="gjywmc != null">
+        gjywmc = #{gjywmc,jdbcType=VARCHAR},
+      </if>
+      <if test="gjmc != null">
+        gjmc = #{gjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="gjewzmDm != null">
+        gjewzm_dm = #{gjewzmDm,jdbcType=VARCHAR},
+      </if>
+      <if test="gjswzmDm != null">
+        gjswzm_dm = #{gjswzmDm,jdbcType=VARCHAR},
+      </if>
+      <if test="qybj != null">
+        qybj = #{qybj,jdbcType=INTEGER},
+      </if>
+      <if test="czrq != null">
+        czrq = #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        user_dm = #{userDm,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gj_dm = #{gjDm,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.DmCsGj">
+    <!--@mbg.generated-->
+    update dm_cs_gj
+    set gjywmc = #{gjywmc,jdbcType=VARCHAR},
+      gjmc = #{gjmc,jdbcType=VARCHAR},
+      gjewzm_dm = #{gjewzmDm,jdbcType=VARCHAR},
+      gjswzm_dm = #{gjswzmDm,jdbcType=VARCHAR},
+      qybj = #{qybj,jdbcType=INTEGER},
+      czrq = #{czrq,jdbcType=TIMESTAMP},
+      xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      user_dm = #{userDm,jdbcType=INTEGER}
+    where gj_dm = #{gjDm,jdbcType=INTEGER}
+  </update>
+    <select id="getNation" resultMap="BaseResultMap">
+      select * from dm_cs_gj where qybj = 1
+    </select>
+</mapper>

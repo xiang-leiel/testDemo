@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.LoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.LoginLog">
+    <!--@mbg.generated-->
+    <!--@Table login_log-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="user_dm" jdbcType="INTEGER" property="userDm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, ip, login_time, user_dm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from login_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from login_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.quantchi.tianji.service.search.model.LoginLog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into login_log (ip, login_time, user_dm
+      )
+    values (#{ip,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, #{userDm,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.quantchi.tianji.service.search.model.LoginLog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into login_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="userDm != null">
+        user_dm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        #{userDm,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.LoginLog">
+    <!--@mbg.generated-->
+    update login_log
+    <set>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        user_dm = #{userDm,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.LoginLog">
+    <!--@mbg.generated-->
+    update login_log
+    set ip = #{ip,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      user_dm = #{userDm,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

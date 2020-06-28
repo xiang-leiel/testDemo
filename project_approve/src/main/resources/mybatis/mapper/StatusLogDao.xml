@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.StatusLogDao">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.StatusLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
+    <result column="company_id" jdbcType="VARCHAR" property="companyId" />
+    <result column="intention_status" jdbcType="VARCHAR" property="intentionStatus" />
+    <result column="intention_move_time" jdbcType="VARCHAR" property="intentionMoveTime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="need_land" jdbcType="VARCHAR" property="needLand" />
+    <result column="need_office" jdbcType="VARCHAR" property="needOffice" />
+    <result column="need_money" jdbcType="VARCHAR" property="needMoney" />
+    <result column="need_condition" jdbcType="VARCHAR" property="needCondition" />
+    <result column="office_number" jdbcType="INTEGER" property="officeNumber" />
+    <result column="office_area" jdbcType="INTEGER" property="officeArea" />
+    <result column="employee_number" jdbcType="INTEGER" property="employeeNumber" />
+    <result column="main_product" jdbcType="VARCHAR" property="mainProduct" />
+    <result column="risk" jdbcType="VARCHAR" property="risk" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    id, staff_id, company_id, intention_status, intention_move_time, `status`, need_land, 
+    need_office, need_money, need_condition, office_number, office_area, employee_number, 
+    main_product, risk,create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from status_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getLast" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from status_log
+    where company_id = #{companyId,jdbcType=VARCHAR}
+    <if test="staffId!=null">and staff_id = #{staffId,jdbcType=VARCHAR}</if>
+    order by id desc limit 1
+  </select>
+  <select id="selectLastByStaffIdAndCompanyId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from status_log
+    where staff_id = #{staffId,jdbcType=VARCHAR} and
+    company_id = #{companyId,jdbcType=VARCHAR} order by id desc limit 1;
+  </select>
+
+  <select id="listByStaffIdAndCompanyId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from status_log
+    where staff_id = #{staffId,jdbcType=VARCHAR} and
+    company_id = #{companyId,jdbcType=VARCHAR} order by id desc
+  </select>
+  <select id="listMyLoggedCompany" resultMap="BaseResultMap">
+    select
+    distinct <include refid="Base_Column_List"/>
+    from status_log
+    where staff_id = #{staffId,jdbcType=VARCHAR} group by company_id
+  </select>
+  <select id="list5LastByCompanyIdAndField" resultMap="BaseResultMap">
+    select tmp.* from
+    (
+    select
+    <include refid="Base_Column_List"/>
+    from status_log
+    where company_id = #{companyId,jdbcType=VARCHAR} and  !(${field}  = '' or isnull(${field} ))  order by id desc limit 1000
+    ) tmp
+    GROUP BY
+    staff_id,
+    ${field}
+    ORDER BY
+    id DESC
+    LIMIT 5
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from status_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.quantchi.tianji.service.search.model.StatusLog" useGeneratedKeys="true">
+    insert into status_log (staff_id, company_id, intention_status, 
+      intention_move_time, `status`, need_land, 
+      need_office, need_money, need_condition, 
+      office_number, office_area, employee_number, 
+      main_product, risk,picture,`from`,origin)
+    values (#{staffId}, #{companyId}, #{intentionStatus},
+      #{intentionMoveTime}, #{status}, #{needLand},
+      #{needOffice}, #{needMoney}, #{needCondition},
+      #{officeNumber}, #{officeArea}, #{employeeNumber},
+      #{mainProduct},
+      #{risk},#{picture},#{from},#{origin})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.quantchi.tianji.service.search.model.StatusLog" useGeneratedKeys="true">
+    insert into status_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        staff_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="intentionStatus != null">
+        intention_status,
+      </if>
+      <if test="intentionMoveTime != null">
+        intention_move_time,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="needLand != null">
+        need_land,
+      </if>
+      <if test="needOffice != null">
+        need_office,
+      </if>
+      <if test="needMoney != null">
+        need_money,
+      </if>
+      <if test="needCondition != null">
+        need_condition,
+      </if>
+      <if test="officeNumber != null">
+        office_number,
+      </if>
+      <if test="officeArea != null">
+        office_area,
+      </if>
+      <if test="employeeNumber != null">
+        employee_number,
+      </if>
+      <if test="mainProduct != null">
+        main_product,
+      </if>
+      <if test="risk != null">
+        risk,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="intentionStatus != null">
+        #{intentionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="intentionMoveTime != null">
+        #{intentionMoveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="needLand != null">
+        #{needLand,jdbcType=VARCHAR},
+      </if>
+      <if test="needOffice != null">
+        #{needOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="needMoney != null">
+        #{needMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="needCondition != null">
+        #{needCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="officeNumber != null">
+        #{officeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="officeArea != null">
+        #{officeArea,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNumber != null">
+        #{employeeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="mainProduct != null">
+        #{mainProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="risk != null">
+        #{risk,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.StatusLog">
+    update status_log
+    <set>
+      <if test="staffId != null">
+        staff_id = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="intentionStatus != null">
+        intention_status = #{intentionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="intentionMoveTime != null">
+        intention_move_time = #{intentionMoveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="needLand != null">
+        need_land = #{needLand,jdbcType=VARCHAR},
+      </if>
+      <if test="needOffice != null">
+        need_office = #{needOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="needMoney != null">
+        need_money = #{needMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="needCondition != null">
+        need_condition = #{needCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="officeNumber != null">
+        office_number = #{officeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="officeArea != null">
+        office_area = #{officeArea,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNumber != null">
+        employee_number = #{employeeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="mainProduct != null">
+        main_product = #{mainProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="risk != null">
+        risk = #{risk,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.StatusLog">
+    update status_log
+    set staff_id = #{staffId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      intention_status = #{intentionStatus,jdbcType=VARCHAR},
+      intention_move_time = #{intentionMoveTime,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      need_land = #{needLand,jdbcType=VARCHAR},
+      need_office = #{needOffice,jdbcType=VARCHAR},
+      need_money = #{needMoney,jdbcType=VARCHAR},
+      need_condition = #{needCondition,jdbcType=VARCHAR},
+      office_number = #{officeNumber,jdbcType=INTEGER},
+      office_area = #{officeArea,jdbcType=INTEGER},
+      employee_number = #{employeeNumber,jdbcType=INTEGER},
+      main_product = #{mainProduct,jdbcType=VARCHAR},
+      risk = #{risk,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="recordRand" parameterType="java.util.Date" resultType="java.util.HashMap">
+      SELECT
+          count(0) AS count,
+          staff_id,
+          name
+      FROM
+          status_log s
+      JOIN inv_ding_user u ON s.staff_id = u.id
+      <if test="startTime!=null">
+       and create_time &gt;= #{startTime}
+      </if>
+      GROUP BY
+          staff_id
+
+      ORDER BY
+          count DESC
+      limit 0,10
+  </select>
+
+  <select id="listStatusLogByCompanyIds" resultType="string">
+    select distinct company_id from status_log where company_id in
+    <foreach item="item" collection="list" separator="," open="(" close=")" index="">
+      #{item}
+    </foreach>
+    <if test="messageTime!=null">
+      and create_time >#{messageTime}
+    </if>
+
+  </select>
+
+  <select id="listStatusLogByCompanyId" parameterType="string"
+          resultType="com.quantchi.tianji.service.search.model.StatusLog">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+        status_log
+    WHERE
+        company_id = #{companyId}
+    <if test="messageTime!=null">
+      and create_time > #{messageTime}
+    </if>
+    order by create_time desc
+  </select>
+
+  <select id="getLastestLogByCompanyId" parameterType="string" resultType="com.quantchi.tianji.service.search.model.StatusLog">
+      SELECT
+         <include refid="Base_Column_List" />
+      FROM
+          status_log
+      WHERE
+          company_id = #{companyId}
+      ORDER BY
+          create_time DESC
+      LIMIT 1
+  </select>
+
+  <select id="getNewestLogByCompanyId" parameterType="string"
+          resultType="com.quantchi.tianji.service.search.model.StatusLog">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+        status_log
+    WHERE
+        company_id = #{companyId}
+    ORDER BY
+        create_time DESC
+    LIMIT 1
+  </select>
+</mapper>

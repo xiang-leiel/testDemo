@@ -1,0 +1,179 @@
+//PUT /deqing_company4app
+{
+  "settings": {
+    "refresh_interval": "20s"
+  },
+  "mappings": {
+    "company": {
+      "properties": {
+        "information": {
+          "properties": {
+            "企业中文名称": {
+              "type": "string",
+              "index": "no"
+            },
+            "企业英文名称": {
+              "type": "string",
+              "index": "no"
+            },
+            "工商注册号": {
+              "type": "string",
+              "index": "no"
+            },
+            "组织机构代码": {
+              "type": "string",
+              "index": "no"
+            },
+            "统一社会信用代码": {
+              "type": "string",
+              "index": "no"
+            },
+            "公司类型": {
+              "type": "string",
+              "index": "no"
+            },
+            "纳税人识别号": {
+              "type": "string",
+              "index": "no"
+            },
+            "行业": {
+              "type": "string",
+              "index": "no"
+            },
+            "营业期限": {
+              "type": "string",
+              "index": "no"
+            },
+            "核准日期": {
+              "type": "string",
+              "index": "no"
+            },
+            "登记机关（中英文）": {
+              "type": "string",
+              "index": "no"
+            },
+            "注册地址": {
+              "type": "string",
+              "index": "no"
+            },
+            "经营范围": {
+              "type": "string",
+              "index": "no"
+            },
+            "法定代表人": {
+              "type": "string",
+              "index": "no"
+            },
+            "注册资本": {
+              "type": "string",
+              "index": "no"
+            },
+            "注册时间": {
+              "type": "string",
+              "index": "no"
+            },
+            "公司状态": {
+              "type": "string",
+              "index": "no"
+            },
+            "股权结构": {
+              "type": "string",
+              "index": "no"
+            },
+            "成立日期": {
+              "type": "string",
+              "index": "no"
+            }
+          }
+        },
+        "source": {
+          "index": "not_analyzed",
+          "type": "string"
+        },
+        "tags": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "tel": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "email": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "baseInfo": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "briefIntroduction": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "moveIntention": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "moveProbability": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "name": {
+          "type": "string",
+          "analyzer": "ik"
+        },
+        "englishName": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "type": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "url": {
+          "type": "string",
+          "index": "no"
+        },
+        "legalRepresentative": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "stockCode": {
+          "type": "string",
+          "index": "no"
+        },
+        "industry": {
+          "properties": {
+            "parent": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "child": {
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+        "area": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "city": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "financeRound": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "logo": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "migrate": {
+          "type": "double"
+        }
+      }
+    }
+  }
+}

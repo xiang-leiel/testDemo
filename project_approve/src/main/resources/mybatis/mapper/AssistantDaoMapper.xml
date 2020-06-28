@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.AssistantDao">
+
+    <select id="getClassifyInfo" parameterType="java.lang.String" resultType="java.util.Map">
+        select GROUP_CONCAT(id) id, `value`  from setting_value where type = #{type} GROUP BY `value` ORDER BY id
+    </select>
+
+    <select id="getClassifyDetailInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        select *  from setting_value where type =  #{type} and `value` =#{value}
+    </select>
+
+    <insert id="addAssistantInfo" parameterType="java.util.Map">
+        insert into inv_assistant_info(
+        create_time
+        <if test="userId != null">
+            ,user_id
+        </if>
+        <if test="classify != null">
+            , classify
+        </if>
+        <if test="title != null">
+            , title
+        </if>
+        <if test="content != null">
+            , content
+        </if>
+        <if test="receive != null">
+            , receive_group
+        </if>
+        )
+        values (
+         #{createTime}
+        <if test="userId != null">
+            ,#{userId}
+        </if>
+        <if test="classify != null">
+            , #{classify}
+        </if>
+        <if test="title != null">
+            , #{title}
+        </if>
+        <if test="content != null">
+            , #{content}
+        </if>
+        <if test="receive != null">
+            , #{receive}
+        </if>
+        )
+    </insert>
+
+    <select id="getAssistantInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        i.*, IFNULL(a.sum, 0) commentNum,
+        IFNULL(b.sum, 0) agreeNum,
+        u.`name`,
+        d.`group`,
+        IFNULL(d.job, 0) job
+        FROM
+        inv_assistant_info i
+        LEFT JOIN (
+        SELECT
+        COUNT(id) sum,
+        assistant_id
+        FROM
+        inv_assistant_comment
+        GROUP BY
+        assistant_id
+        ) a ON i.id = a.assistant_id
+        LEFT JOIN (
+        SELECT
+        COUNT(id) sum,
+        assistant_id
+        FROM
+        inv_assistant_agree
+        GROUP BY
+        assistant_id
+        ) b ON i.id = b.assistant_id
+        LEFT JOIN inv_ding_user u ON i.user_id = u.id
+        LEFT JOIN inv_user_detail d ON i.user_id = d.user_id
+        WHERE
+        1 = 1
+        <if test="classify != null">
+            and classify in
+            <foreach collection="classify" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="groupList != null">
+            and receive_group in
+            <foreach collection="groupList" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <insert id="addAssistantCommentInfo" parameterType="java.util.Map">
+        insert into inv_assistant_comment (user_id, assistant_id, content, create_time)
+        values (#{userId}, #{assistantId}, #{content}, #{createTime});
+    </insert>
+
+    <select id="getAssistantCommentInfo" parameterType="java.util.Map" resultType="java.util.Map">
+SELECT
+	ac.id id,
+	ac.content content,
+	ud.`group` `group`,
+	du.`name` sendName,
+	CONCAT(#{picUrl},ud.img_url,'') imgUrl,
+	IFNULL(a.num, 0) num,
+	ac.create_time createTime
+FROM
+	inv_assistant_comment ac
+LEFT JOIN inv_ding_user du ON ac.user_id = du.id
+LEFT JOIN inv_user_detail ud ON du.id = ud.user_id
+LEFT JOIN (
+	SELECT
+		COUNT(id) num,
+		assistant_id,
+		flag
+	FROM
+		inv_assistant_agree
+	WHERE
+		flag = 1
+	GROUP BY
+		assistant_id,
+		flag
+) a ON ac.id = a.assistant_id
+WHERE
+	ac.assistant_id = #{assistantId}
+ORDER BY
+	create_time DESC
+    </select>
+
+    <insert id="addAssistantAgreeInfo" parameterType="java.util.Map">
+        insert into inv_assistant_agree (user_id, assistant_id, flag, create_time)
+        values (#{userId}, #{assistantId}, #{flag}, #{createTime})
+    </insert>
+
+    <select id="getAssistantAgreeInfoByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(id) from inv_assistant_agree where user_id = #{userId} and assistant_id = #{assistantId} and flag = #{flag}
+    </select>
+</mapper>

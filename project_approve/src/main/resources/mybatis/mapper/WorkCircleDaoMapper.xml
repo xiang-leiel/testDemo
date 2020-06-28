@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.WorkCircleDao">
+
+    <insert id="insert" parameterType="com.quantchi.tianji.service.search.model.WorkCircle">
+        INSERT INTO inv_work_circle (type, <if test="type==0">record_id</if> <if test="type!=0">task_id</if> )
+        VALUES (#{type},#{id})
+    </insert>
+
+
+    <select id="listWorkCirclesFromTaskByTime"  parameterType="com.quantchi.tianji.service.search.model.Order" resultType="com.quantchi.tianji.service.search.model.WorkCircleImpl">
+        SELECT
+            t.id,
+            staff_id,
+            handler_id,
+            company_id,
+            remark,
+            u1. NAME AS handler_name,
+            u1.department_id AS handler_depart_id,
+            u2.department_id AS assigner_depart_id,
+            u2. NAME AS staff_name,
+            t.create_time,
+            t.type,
+            t.`from`,
+            t.origin
+        FROM
+            (
+                SELECT
+                    task.id,
+                    staff_id,
+                    handler_id,
+                    company_id,
+                    remark,
+                    task.create_time,
+                    type,
+                    `from`,
+                    origin
+                FROM
+                    (
+                        SELECT
+                            id,task_id,type,create_time
+                        FROM
+                            inv_work_circle
+                        ORDER BY
+					    create_time ${sortOrder}
+                        LIMIT #{page},
+                        #{pageSize}
+                    ) c
+                JOIN inv_work_task task ON c.task_id = task.id
+            ) t
+        LEFT JOIN inv_ding_user u1 ON t.handler_id = u1.id
+        LEFT JOIN inv_ding_user u2 ON t.staff_id = u2.id
+        ORDER BY
+            t.create_time ${sortOrder}
+    </select>
+
+    <select id="listWorkCirclesFromTaskByStaffId"  parameterType="com.quantchi.tianji.service.search.model.Order" resultType="com.quantchi.tianji.service.search.model.WorkCircleImpl">
+        SELECT
+            t.id,
+            staff_id,
+            handler_id,
+            company_id,
+            remark,
+            u1. NAME AS handler_name,
+            u1.department_id AS handler_depart_id,
+            u2.department_id AS assigner_depart_id,
+            u2. NAME AS staff_name,
+            create_time,
+             1 as type,
+            t.`from`,
+            t.origin
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    inv_work_task
+                WHERE
+                    handler_id = #{sortOrder} or staff_id=#{sortOrder}
+            ) t
+        LEFT JOIN inv_ding_user u1 ON t.handler_id = u1.id
+        LEFT JOIN inv_ding_user u2 ON t.staff_id = u2.id order by t.create_time desc limit 0,#{size}
+    </select>
+
+    <select id="listWorkCirclesFromTaskByDepartId"  parameterType="com.quantchi.tianji.service.search.model.Order" resultType="com.quantchi.tianji.service.search.model.WorkCircleImpl">
+        SELECT
+            a.id,
+            a.staff_id,
+            a.staff_name,
+            a.company_id,
+            a.remark,
+            a.handler_id,
+            a.handler_name,
+            a.create_time,
+            a.type,
+            a.`from`,
+            a.origin
+        FROM
+            (
+                SELECT
+                    t.id,
+                    staff_id,
+                    handler_id,
+                    company_id,
+                    remark,
+                    u1. NAME AS handler_name,
+                    u1.department_id AS handler_depart_id,
+                    u2.department_id AS assigner_depart_id,
+                    u2. NAME AS staff_name,
+                    t.create_time,
+                    t.type,
+                    t.`from`,
+                    t.origin
+                FROM
+                    (
+                        SELECT
+                            task.id,
+                            staff_id,
+                            handler_id,
+                            company_id,
+                            remark,
+                            task.create_time,
+                            type,
+                            `from`
+                        FROM
+                            (
+                                SELECT
+                                    id,
+                                    task_id,
+                                    type
+                                FROM
+                                    inv_work_circle
+                            ) c
+                        JOIN inv_work_task task ON c.task_id = task.id
+                    ) t
+                LEFT JOIN inv_ding_user u1 ON t.handler_id = u1.id
+                LEFT JOIN inv_ding_user u2 ON t.staff_id = u2.id
+            ) a
+        WHERE
+            a.assigner_depart_id = #{sortOrder}
+        OR a.handler_depart_id =  #{sortOrder}
+        ORDER BY
+            create_time DESC
+        LIMIT 0,
+         #{size}
+    </select>
+
+
+    <select id="listWorkCirclesFromRecordByTime" parameterType="com.quantchi.tianji.service.search.model.Order" resultType="com.quantchi.tianji.service.search.model.WorkCircleImpl">
+        SELECT
+            t.id,
+            staff_id,
+            company_id,
+            u1. NAME AS staff_name,
+            u1.department_id AS staff_depart_id,
+            t.create_time,
+            t.status,
+            t.type,
+            t.`from`,
+            t.origin
+        FROM
+            (
+                SELECT
+                    sl.id,
+                    staff_id,
+                    company_id,
+                    sl.create_time,
+                    sl.status,
+                    type,
+                    `from`,
+                    origin
+                FROM
+                    (
+                        SELECT
+                            id,
+                            record_id,
+                            type,
+                            create_time
+                        FROM
+                            inv_work_circle
+                        ORDER BY
+					    create_time ${sortOrder}
+                        LIMIT #{page},
+                        #{pageSize}
+                    ) c
+                JOIN status_log sl ON c.record_id = sl.id
+            ) t
+        LEFT JOIN inv_ding_user u1 ON staff_id = u1.id
+        ORDER BY
+            t.create_time ${sortOrder}
+    </select>
+
+    <select id="listWorkCirclesFromRecordByStaffId" parameterType="com.quantchi.tianji.service.search.model.Order" resultType="com.quantchi.tianji.service.search.model.WorkCircleImpl">
+        SELECT
+            t.id,
+            t.staff_id,
+            company_id,
+            u1. NAME AS staff_name,
+            t.status,
+            create_time,
+            0 as type,
+            t.`from`,
+            t.origin
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    status_log
+                WHERE
+                    staff_id = #{sortOrder}
+            ) t
+        LEFT JOIN inv_ding_user u1 ON t.staff_id = u1.id
+        ORDER BY
+            t.create_time DESC limit 0,#{size}
+    </select>
+
+    <select id="listWorkCirclesFromRecordByDepartId" parameterType="com.quantchi.tianji.service.search.model.Order" resultType="com.quantchi.tianji.service.search.model.WorkCircleImpl">
+        SELECT
+            id,
+            staff_id,
+            company_id,
+            staff_name,
+            create_time,
+            0 as type,
+            a.status,
+            `from`,
+            origin
+        FROM
+            (
+                SELECT
+                    t.id,
+                    staff_id,
+                    company_id,
+                    u1. NAME AS staff_name,
+                    u1.department_id AS staff_depart_id,
+                    create_time,
+                    status,
+                    `from`,
+                    origin
+                FROM
+                    status_log t
+                LEFT JOIN inv_ding_user u1 ON t.staff_id = u1.id
+            ) a
+        WHERE
+            a.staff_depart_id = #{sortOrder}
+        ORDER BY
+            create_time DESC limit 0,#{size}
+    </select>
+
+    <select id="getTotalCount" resultType="java.lang.Integer">
+        select count(0) from inv_work_circle
+    </select>
+
+    <select id="countWorkCirclesFromTaskByStaffId" parameterType="com.quantchi.tianji.service.search.model.Order" resultType="java.lang.Integer">
+        SELECT
+            count(0)
+        FROM
+            inv_work_task
+        WHERE
+            handler_id = #{sortOrder}
+        OR staff_id = #{sortOrder}
+    </select>
+
+    <select id="countWorkCirclesFromRecordByStaffId" parameterType="com.quantchi.tianji.service.search.model.Order" resultType="java.lang.Integer">
+        SELECT
+            count(0)
+        FROM
+            status_log
+        WHERE
+            staff_id = #{sortOrder}
+    </select>
+
+    <select id="countWorkCirclesFromRecordByDepartId" parameterType="com.quantchi.tianji.service.search.model.Order" resultType="java.lang.Integer">
+        SELECT
+            count(0)
+        FROM
+            (
+                SELECT
+                    t.id,
+                    staff_id,
+                    company_id,
+                    u1. NAME AS staff_name,
+                    u1.department_id AS staff_depart_id,
+                    create_time
+                FROM
+                    status_log t
+                LEFT JOIN inv_ding_user u1 ON t.staff_id = u1.id
+            ) a
+        WHERE
+            a.staff_depart_id = #{sortOrder}
+    </select>
+
+    <select id="countWorkCirclesFromTaskByDepartId" parameterType="com.quantchi.tianji.service.search.model.Order" resultType="java.lang.Integer">
+        SELECT
+            count(0)
+        FROM
+            (
+                SELECT
+                    t.id,
+                    staff_id,
+                    handler_id,
+                    company_id,
+                    remark,
+                    u1. NAME AS handler_name,
+                    u1.department_id AS handler_depart_id,
+                    u2.department_id AS assigner_depart_id,
+                    u2. NAME AS staff_name,
+                    t.create_time,
+                    t.type
+                FROM
+                    (
+                        SELECT
+                            task.id,
+                            staff_id,
+                            handler_id,
+                            company_id,
+                            remark,
+                            task.create_time,
+                            type
+                        FROM
+                            (
+                                SELECT
+                                    id,
+                                    task_id,
+                                    type
+                                FROM
+                                    inv_work_circle
+                            ) c
+                        JOIN inv_work_task task ON c.task_id = task.id
+                    ) t
+                LEFT JOIN inv_ding_user u1 ON t.handler_id = u1.id
+                LEFT JOIN inv_ding_user u2 ON t.staff_id = u2.id
+            ) a
+        WHERE
+            a.assigner_depart_id = #{sortOrder}
+        OR a.handler_depart_id = #{sortOrder}
+
+    </select>
+
+</mapper>

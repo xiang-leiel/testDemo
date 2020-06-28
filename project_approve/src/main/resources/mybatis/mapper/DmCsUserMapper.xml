@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.DmCsUserMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.DmCsUser">
+    <!--@mbg.generated-->
+    <!--@Table dm_cs_user-->
+    <id column="user_dm" jdbcType="INTEGER" property="userDm" />
+    <result column="xm" jdbcType="VARCHAR" property="xm" />
+    <result column="zw" jdbcType="VARCHAR" property="zw" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="dept_dm" jdbcType="INTEGER" property="deptDm" />
+    <result column="qybj" jdbcType="INTEGER" property="qybj" />
+    <result column="czrq" jdbcType="TIMESTAMP" property="czrq" />
+    <result column="xgrq" jdbcType="TIMESTAMP" property="xgrq" />
+    <result column="dl_mm" jdbcType="VARCHAR" property="dlMm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    user_dm, xm, zw, mobile, dept_dm, qybj, czrq, xgrq, dl_mm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from dm_cs_user
+    where user_dm = #{userDm,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from dm_cs_user
+    where user_dm = #{userDm,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="user_dm" keyProperty="userDm" parameterType="com.quantchi.tianji.service.search.model.DmCsUser" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dm_cs_user (xm, zw, mobile, 
+      dept_dm, qybj, czrq, 
+      xgrq, dl_mm)
+    values (#{xm,jdbcType=VARCHAR}, #{zw,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{deptDm,jdbcType=INTEGER}, #{qybj,jdbcType=INTEGER}, #{czrq,jdbcType=TIMESTAMP}, 
+      #{xgrq,jdbcType=TIMESTAMP}, #{dlMm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="user_dm" keyProperty="userDm" parameterType="com.quantchi.tianji.service.search.model.DmCsUser" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dm_cs_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xm != null">
+        xm,
+      </if>
+      <if test="zw != null">
+        zw,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="deptDm != null">
+        dept_dm,
+      </if>
+      <if test="qybj != null">
+        qybj,
+      </if>
+      <if test="czrq != null">
+        czrq,
+      </if>
+      <if test="xgrq != null">
+        xgrq,
+      </if>
+      <if test="dlMm != null">
+        dl_mm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xm != null">
+        #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="zw != null">
+        #{zw,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="deptDm != null">
+        #{deptDm,jdbcType=INTEGER},
+      </if>
+      <if test="qybj != null">
+        #{qybj,jdbcType=INTEGER},
+      </if>
+      <if test="czrq != null">
+        #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dlMm != null">
+        #{dlMm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.DmCsUser">
+    <!--@mbg.generated-->
+    update dm_cs_user
+    <set>
+      <if test="xm != null">
+        xm = #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="zw != null">
+        zw = #{zw,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="deptDm != null">
+        dept_dm = #{deptDm,jdbcType=INTEGER},
+      </if>
+      <if test="qybj != null">
+        qybj = #{qybj,jdbcType=INTEGER},
+      </if>
+      <if test="czrq != null">
+        czrq = #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dlMm != null">
+        dl_mm = #{dlMm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_dm = #{userDm,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.DmCsUser">
+    <!--@mbg.generated-->
+    update dm_cs_user
+    set xm = #{xm,jdbcType=VARCHAR},
+      zw = #{zw,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      dept_dm = #{deptDm,jdbcType=INTEGER},
+      qybj = #{qybj,jdbcType=INTEGER},
+      czrq = #{czrq,jdbcType=TIMESTAMP},
+      xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      dl_mm = #{dlMm,jdbcType=VARCHAR}
+    where user_dm = #{userDm,jdbcType=INTEGER}
+  </update>
+    <select id="selectBymobile" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * from dm_cs_user where qybj = 1 and mobile = #{mobile}
+    </select>
+    <select id="getJobByMobile" resultType="java.lang.Integer">
+      select gwjs_dm from dm_cs_user u
+      inner join dm_wf_rygwdzb r
+      where r.user_dm = u.user_dm
+      and u.mobile = #{mobile}
+    </select>
+    <select id="getDeptDmByUserId" resultType="java.lang.Integer">
+      select dept_dm from dm_cs_user where user_dm = #{userId} and qybj = 1
+    </select>
+  <select id="selectListByDeptDm" resultType="java.lang.String">
+    select ding_userid from dm_cs_user where dept_dm = #{deptId} and qybj = 1
+
+  </select>
+    <select id="selectNameByDingId" resultType="java.lang.String">
+      select xm from dm_cs_user where ding_userid = #{staffId} and qybj = 1
+    </select>
+  <select id="getUserDmByStaffId" resultType="java.lang.Integer">
+      select user_dm from dm_cs_user where ding_userid = #{staffId} and qybj = 1
+  </select>
+  <select id="selectByDeptDm" resultMap="BaseResultMap">
+    select * from dm_cs_user where dept_dm = #{deptId} and qybj = 1
+  </select>
+  <select id="selectNameByUserDm" resultType="java.lang.String">
+    select xm from dm_cs_user where user_dm = #{userId} and qybj = 1
+  </select>
+</mapper>

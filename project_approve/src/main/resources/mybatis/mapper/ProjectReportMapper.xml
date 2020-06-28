@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.mapper.project.ProjectReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.entity.project.ProjectReport">
+        <id column="id" property="id" />
+        <result column="status" property="status" />
+        <result column="industry_type" property="industryType" />
+        <result column="project_label" property="projectLabel" />
+        <result column="field" property="field" />
+        <result column="invest_info" property="investInfo" />
+        <result column="project_info" property="projectInfo" />
+        <result column="need_land" property="needLand" />
+        <result column="asset_invest" property="assetInvest" />
+        <result column="judge_label" property="judgeLabel" />
+        <result column="sign_label" property="signLabel" />
+        <result column="suggest_land" property="suggestLand" />
+        <result column="auditor" property="auditor" />
+        <result column="audit_remark" property="auditRemark" />
+        <result column="flow_work" property="flowWork" />
+        <result column="is_delete" property="isDelete" />
+        <result column="region" property="region" />
+        <result column="investment_unit" property="investmentUnit" />
+        <result column="branch" property="branch" />
+        <result column="audit_time" property="auditTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, status, industry_type, project_label, field, invest_info, project_info, need_land, asset_invest, judge_label, sign_label, suggest_land, auditor, audit_remark, flow_work, is_delete, region, investment_unit
+         , audit_time, branch, create_time, update_time
+    </sql>
+    <select id="queryReportDataByPage" resultMap="BaseResultMap" parameterType="com.quantchi.tianji.service.search.model.ProjectReportDTO">
+        SELECT *
+        FROM project_report
+        WHERE 1=1
+        <if test="investUnits !=null and investUnits.size > 0">
+            and investment_unit in
+            <foreach item="item" index="index" collection="investUnits" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="regions !=null and regions.size > 0">
+            and region in
+            <foreach item="item" index="index" collection="regions" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="reportStartTime !=null and reportEndTime !=null ">
+            and update_time BETWEEN #{reportStartTime} AND #{reportEndTime}
+        </if>
+        <if test="department !=null ">
+            and branch = #{department}
+        </if>
+        <if test="flowWork !=null ">
+            and flow_work = #{flowWork}
+        </if>
+        order by update_time desc
+    </select>
+    <select id="selectListByBranch" resultMap="BaseResultMap" parameterType="com.quantchi.tianji.service.search.model.ProjectReportDTO">
+        select * from project_report
+        <where>
+            <if test= "branch != null">
+                branch = #{branch}
+            </if>
+            <if test="status !=null and status.size > 0">
+                and status in
+                <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="flowWork !=null ">
+                and flow_work = #{flowWork}
+            </if>
+        </where>
+    </select>
+    <select id="selectListLikeName" resultMap="BaseResultMap">
+        select * from project_report p
+        LEFT JOIN project_record r
+        <where>
+            p.id = r.id and
+            <if test= "projectName != null">
+                r.name LIKE CONCAT('%', #{projectName}, '%')
+            </if>
+            <if test="branch !=null ">
+                and p.branch = #{branch}
+            </if>
+        </where>
+        Limit #{page}, #{pageSize}
+    </select>
+
+</mapper>

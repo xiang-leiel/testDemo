@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.DmWfNodezbMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.DmWfNodezb">
+    <!--@mbg.generated-->
+    <!--@Table dm_wf_nodezb-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="wfnodezb_dm" jdbcType="INTEGER" property="wfnodezbDm" />
+    <result column="pre_wfnodezb_dm" jdbcType="INTEGER" property="preWfnodezbDm" />
+    <result column="wfmc" jdbcType="VARCHAR" property="wfmc" />
+    <result column="wf_desc" jdbcType="VARCHAR" property="wfDesc" />
+    <result column="rygwdz_dm" jdbcType="INTEGER" property="rygwdzDm" />
+    <result column="lczt_dm" jdbcType="INTEGER" property="lcztDm" />
+    <result column="dept_dm" jdbcType="INTEGER" property="deptDm" />
+    <result column="lcjdbj" jdbcType="INTEGER" property="lcjdbj" />
+    <result column="zsbj" jdbcType="INTEGER" property="zsbj" />
+    <result column="qybj" jdbcType="INTEGER" property="qybj" />
+    <result column="czrq" jdbcType="TIMESTAMP" property="czrq" />
+    <result column="xgrq" jdbcType="TIMESTAMP" property="xgrq" />
+    <result column="user_dm" jdbcType="INTEGER" property="userDm" />
+    <result column="next_wfnodezb_dm" jdbcType="INTEGER" property="nextWfnodezbDm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, wfnodezb_dm, pre_wfnodezb_dm, wfmc, wf_desc, rygwdz_dm, lczt_dm, dept_dm, lcjdbj, 
+    zsbj, qybj, czrq, xgrq, user_dm, next_wfnodezb_dm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from dm_wf_nodezb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from dm_wf_nodezb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="wfnodezb_dm" keyProperty="wfnodezbDm" parameterType="com.quantchi.tianji.service.search.model.DmWfNodezb" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dm_wf_nodezb (id, pre_wfnodezb_dm, wfmc, 
+      wf_desc, rygwdz_dm, lczt_dm, 
+      dept_dm, lcjdbj, zsbj, 
+      qybj, czrq, xgrq, 
+      user_dm, next_wfnodezb_dm)
+    values (#{id,jdbcType=INTEGER}, #{preWfnodezbDm,jdbcType=INTEGER}, #{wfmc,jdbcType=VARCHAR}, 
+      #{wfDesc,jdbcType=VARCHAR}, #{rygwdzDm,jdbcType=INTEGER}, #{lcztDm,jdbcType=INTEGER}, 
+      #{deptDm,jdbcType=INTEGER}, #{lcjdbj,jdbcType=INTEGER}, #{zsbj,jdbcType=INTEGER}, 
+      #{qybj,jdbcType=INTEGER}, #{czrq,jdbcType=TIMESTAMP}, #{xgrq,jdbcType=TIMESTAMP}, 
+      #{userDm,jdbcType=INTEGER}, #{nextWfnodezbDm,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="wfnodezb_dm" keyProperty="wfnodezbDm" parameterType="com.quantchi.tianji.service.search.model.DmWfNodezb" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dm_wf_nodezb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="preWfnodezbDm != null">
+        pre_wfnodezb_dm,
+      </if>
+      <if test="wfmc != null">
+        wfmc,
+      </if>
+      <if test="wfDesc != null">
+        wf_desc,
+      </if>
+      <if test="rygwdzDm != null">
+        rygwdz_dm,
+      </if>
+      <if test="lcztDm != null">
+        lczt_dm,
+      </if>
+      <if test="deptDm != null">
+        dept_dm,
+      </if>
+      <if test="lcjdbj != null">
+        lcjdbj,
+      </if>
+      <if test="zsbj != null">
+        zsbj,
+      </if>
+      <if test="qybj != null">
+        qybj,
+      </if>
+      <if test="czrq != null">
+        czrq,
+      </if>
+      <if test="xgrq != null">
+        xgrq,
+      </if>
+      <if test="userDm != null">
+        user_dm,
+      </if>
+      <if test="nextWfnodezbDm != null">
+        next_wfnodezb_dm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="preWfnodezbDm != null">
+        #{preWfnodezbDm,jdbcType=INTEGER},
+      </if>
+      <if test="wfmc != null">
+        #{wfmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wfDesc != null">
+        #{wfDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rygwdzDm != null">
+        #{rygwdzDm,jdbcType=INTEGER},
+      </if>
+      <if test="lcztDm != null">
+        #{lcztDm,jdbcType=INTEGER},
+      </if>
+      <if test="deptDm != null">
+        #{deptDm,jdbcType=INTEGER},
+      </if>
+      <if test="lcjdbj != null">
+        #{lcjdbj,jdbcType=INTEGER},
+      </if>
+      <if test="zsbj != null">
+        #{zsbj,jdbcType=INTEGER},
+      </if>
+      <if test="qybj != null">
+        #{qybj,jdbcType=INTEGER},
+      </if>
+      <if test="czrq != null">
+        #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        #{userDm,jdbcType=INTEGER},
+      </if>
+      <if test="nextWfnodezbDm != null">
+        #{nextWfnodezbDm,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.DmWfNodezb">
+    <!--@mbg.generated-->
+    update dm_wf_nodezb
+    <set>
+      <if test="wfnodezbDm != null">
+        wfnodezb_dm = #{wfnodezbDm,jdbcType=INTEGER},
+      </if>
+      <if test="preWfnodezbDm != null">
+        pre_wfnodezb_dm = #{preWfnodezbDm,jdbcType=INTEGER},
+      </if>
+      <if test="wfmc != null">
+        wfmc = #{wfmc,jdbcType=VARCHAR},
+      </if>
+      <if test="wfDesc != null">
+        wf_desc = #{wfDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rygwdzDm != null">
+        rygwdz_dm = #{rygwdzDm,jdbcType=INTEGER},
+      </if>
+      <if test="lcztDm != null">
+        lczt_dm = #{lcztDm,jdbcType=INTEGER},
+      </if>
+      <if test="deptDm != null">
+        dept_dm = #{deptDm,jdbcType=INTEGER},
+      </if>
+      <if test="lcjdbj != null">
+        lcjdbj = #{lcjdbj,jdbcType=INTEGER},
+      </if>
+      <if test="zsbj != null">
+        zsbj = #{zsbj,jdbcType=INTEGER},
+      </if>
+      <if test="qybj != null">
+        qybj = #{qybj,jdbcType=INTEGER},
+      </if>
+      <if test="czrq != null">
+        czrq = #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        user_dm = #{userDm,jdbcType=INTEGER},
+      </if>
+      <if test="nextWfnodezbDm != null">
+        next_wfnodezb_dm = #{nextWfnodezbDm,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.DmWfNodezb">
+    <!--@mbg.generated-->
+    update dm_wf_nodezb
+    set wfnodezb_dm = #{wfnodezbDm,jdbcType=INTEGER},
+      pre_wfnodezb_dm = #{preWfnodezbDm,jdbcType=INTEGER},
+      wfmc = #{wfmc,jdbcType=VARCHAR},
+      wf_desc = #{wfDesc,jdbcType=VARCHAR},
+      rygwdz_dm = #{rygwdzDm,jdbcType=INTEGER},
+      lczt_dm = #{lcztDm,jdbcType=INTEGER},
+      dept_dm = #{deptDm,jdbcType=INTEGER},
+      lcjdbj = #{lcjdbj,jdbcType=INTEGER},
+      zsbj = #{zsbj,jdbcType=INTEGER},
+      qybj = #{qybj,jdbcType=INTEGER},
+      czrq = #{czrq,jdbcType=TIMESTAMP},
+      xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      user_dm = #{userDm,jdbcType=INTEGER},
+      next_wfnodezb_dm = #{nextWfnodezbDm,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectOne" resultMap="BaseResultMap">
+    select * from dm_wf_nodezb where 1=1
+    <if test="preWfnodezbDm != null">
+      and pre_wfnodezb_dm = #{preWfnodezbDm,jdbcType=INTEGER}
+    </if>
+    <if test="wfmc != null">
+      and wfmc = #{wfmc,jdbcType=VARCHAR}
+    </if>
+    <if test="wfDesc != null">
+      and wf_desc = #{wfDesc,jdbcType=VARCHAR}
+    </if>
+    <if test="rygwdzDm != null">
+      and rygwdz_dm = #{rygwdzDm,jdbcType=INTEGER}
+    </if>
+    <if test="lcztDm != null">
+      and lczt_dm = #{lcztDm,jdbcType=INTEGER}
+    </if>
+    <if test="deptDm != null">
+      and dept_dm = #{deptDm,jdbcType=INTEGER}
+    </if>
+    <if test="lcjdbj != null">
+      and lcjdbj = #{lcjdbj,jdbcType=INTEGER}
+    </if>
+    <if test="zsbj != null">
+      and zsbj = #{zsbj,jdbcType=INTEGER}
+    </if>
+    <if test="qybj != null">
+      and qybj = #{qybj,jdbcType=INTEGER}
+    </if>
+    <if test="czrq != null">
+      and czrq = #{czrq,jdbcType=TIMESTAMP}
+    </if>
+    <if test="xgrq != null">
+      and xgrq = #{xgrq,jdbcType=TIMESTAMP}
+    </if>
+    <if test="userDm != null">
+      and user_dm = #{userDm,jdbcType=INTEGER}
+    </if> limit 1
+  </select>
+  <select id="selectPreDmByUserId" resultType="java.lang.Integer">
+      select n.next_wfnodezb_dm from dm_wf_nodezb n
+      INNER JOIN dm_wf_rygwdzb r
+      INNER JOIN dm_cs_user u
+      where n.rygwdz_dm = r.rygwdz_dm and n.dept_dm = u.dept_dm
+      and r.user_dm = u.user_dm
+      and u.user_dm = #{userDm} limit 1
+  </select>
+
+  <select id="selectByPreNode" resultType="com.quantchi.tianji.service.search.model.DmWfNodezb">
+    select * from dm_wf_nodezb
+    where pre_wfnodezb_dm = #{preNode}
+  </select>
+
+  <select id="selectNextZtByNode" resultType="com.quantchi.tianji.service.search.model.DmWfNodezb">
+    select * from dm_wf_nodezb
+    where wfnodezb_dm = #{node} and qybj = 1 limit 1
+  </select>
+
+  <select id="selectStatusDmByUserId" resultType="java.lang.Integer">
+    select l.xmzt_dm from dm_wf_nodezb n
+    INNER JOIN dm_wf_rygwdzb r
+    INNER JOIN dm_cs_user u
+    INNER JOIN dm_cs_lczt l
+    where n.rygwdz_dm = r.rygwdz_dm and n.dept_dm = u.dept_dm
+    and n.lczt_dm = l.lczt_dm and n.qybj = 1 and r.qybj = 1 and u.qybj = 1 and l.qybj = 1
+    and u.user_dm = #{userDm} limit 1
+  </select>
+
+  <select id="selectFlagDmByUserId" resultType="java.lang.Integer">
+    select n.zsbj from dm_wf_nodezb n
+    INNER JOIN dm_wf_rygwdzb r
+    INNER JOIN dm_cs_user u
+    INNER JOIN dm_cs_lczt l
+    where n.rygwdz_dm = r.rygwdz_dm and n.dept_dm = u.dept_dm
+    and n.lczt_dm = l.lczt_dm and n.qybj = 1 and r.qybj = 1 and u.qybj = 1 and l.qybj = 1
+    and u.user_dm = #{userDm} limit 1
+  </select>
+
+  <select id="selectXmztDmByUserId" resultType="java.lang.Integer">
+    select l.xmzt_dm from dm_wf_nodezb n
+    INNER JOIN dm_cs_user u
+    INNER JOIN dm_cs_lczt l
+    where n.dept_dm = u.dept_dm and l.lczt_dm = n.lczt_dm and n.qybj = 1 and u.qybj = 1 and l.qybj = 1
+    and u.user_dm = #{userDm} limit 1
+  </select>
+
+  <select id="selectNodDmByUserId" resultType="java.lang.Integer">
+    select n.wfnodezb_dm from dm_wf_nodezb n
+    INNER JOIN dm_wf_rygwdzb r
+    INNER JOIN dm_cs_user u
+    where n.rygwdz_dm = r.rygwdz_dm
+    and u.user_dm = r.user_dm and r.qybj = 1 and u.qybj = 1 and n.qybj = 1
+    and u.user_dm = #{userDm}
+  </select>
+  <select id="selectNextByUserDm" resultType="java.lang.Integer">
+    select n.next_wfnodezb_dm from dm_cs_user u
+    INNER JOIN dm_wf_nodezb n
+    where u.dept_dm = n.dept_dm and n.qybj = 1 and u.qybj = 1 and u.user_dm = #{userDm}
+  </select>
+  <select id="selectNodeByUserDm" resultType="java.lang.Integer">
+    select n.wfnodezb_dm from dm_cs_user u
+    INNER JOIN dm_wf_nodezb n
+    where u.dept_dm = n.dept_dm and n.qybj = 1 and u.qybj = 1 and u.user_dm = #{userId}
+  </select>
+  <select id="selectStatusByUserDm" resultType="java.lang.Integer">
+    select l.xmzt_dm from dm_cs_user u
+    INNER JOIN dm_wf_nodezb n
+    INNER JOIN dm_cs_lczt l
+    where u.dept_dm = n.dept_dm and l.lczt_dm = n.lczt_dm and n.qybj = 1 and l.qybj = 1 and u.qybj = 1
+    and u.user_dm = #{userDm}
+  </select>
+    <select id="selectDeptDmByUserId" resultType="java.lang.Integer">
+      select n.dept_dm from dm_wf_nodezb n
+      INNER JOIN dm_wf_rygwdzb r
+      where r.rygwdz_dm = n.rygwdz_dm and r.qybj = 1 and n.qybj = 1
+      and r.user_dm = #{userId}
+    </select>
+</mapper>

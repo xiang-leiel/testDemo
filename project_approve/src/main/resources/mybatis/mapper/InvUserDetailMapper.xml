@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.InvUserDetailMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.InvUserDetail">
+    <!--@mbg.generated-->
+    <!--@Table inv_user_detail-->
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="group" jdbcType="VARCHAR" property="group" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="docking_enterprise_total" jdbcType="INTEGER" property="dockingEnterpriseTotal" />
+    <result column="merchants_value" jdbcType="INTEGER" property="merchantsValue" />
+    <result column="success_business_num" jdbcType="INTEGER" property="successBusinessNum" />
+    <result column="message_time" jdbcType="TIMESTAMP" property="messageTime" />
+    <result column="channel_time" jdbcType="TIMESTAMP" property="channelTime" />
+    <result column="job" jdbcType="INTEGER" property="job" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="region" jdbcType="VARCHAR" property="region" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    user_id, latitude, longitude, sex, img_url, `group`, birthday, native_place, docking_enterprise_total, 
+    merchants_value, success_business_num, message_time, channel_time, job, `location`, region
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from inv_user_detail
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from inv_user_detail
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.quantchi.tianji.service.search.model.InvUserDetail">
+    <!--@mbg.generated-->
+    insert into inv_user_detail (user_id, latitude, longitude, 
+      sex, img_url, `group`, 
+      birthday, native_place, docking_enterprise_total, 
+      merchants_value, success_business_num, message_time, 
+      channel_time, job, `location`, region
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, 
+      #{sex,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{group,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{dockingEnterpriseTotal,jdbcType=INTEGER}, 
+      #{merchantsValue,jdbcType=INTEGER}, #{successBusinessNum,jdbcType=INTEGER}, #{messageTime,jdbcType=TIMESTAMP}, 
+      #{channelTime,jdbcType=TIMESTAMP}, #{job,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.quantchi.tianji.service.search.model.InvUserDetail">
+    <!--@mbg.generated-->
+    insert into inv_user_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="group != null">
+        `group`,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="nativePlace != null">
+        native_place,
+      </if>
+      <if test="dockingEnterpriseTotal != null">
+        docking_enterprise_total,
+      </if>
+      <if test="merchantsValue != null">
+        merchants_value,
+      </if>
+      <if test="successBusinessNum != null">
+        success_business_num,
+      </if>
+      <if test="messageTime != null">
+        message_time,
+      </if>
+      <if test="channelTime != null">
+        channel_time,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="location != null">
+        `location`,
+      </if>
+      <if test="region != null">
+        region,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null">
+        #{group,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="dockingEnterpriseTotal != null">
+        #{dockingEnterpriseTotal,jdbcType=INTEGER},
+      </if>
+      <if test="merchantsValue != null">
+        #{merchantsValue,jdbcType=INTEGER},
+      </if>
+      <if test="successBusinessNum != null">
+        #{successBusinessNum,jdbcType=INTEGER},
+      </if>
+      <if test="messageTime != null">
+        #{messageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelTime != null">
+        #{channelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.InvUserDetail">
+    <!--@mbg.generated-->
+    update inv_user_detail
+    <set>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null">
+        `group` = #{group,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="dockingEnterpriseTotal != null">
+        docking_enterprise_total = #{dockingEnterpriseTotal,jdbcType=INTEGER},
+      </if>
+      <if test="merchantsValue != null">
+        merchants_value = #{merchantsValue,jdbcType=INTEGER},
+      </if>
+      <if test="successBusinessNum != null">
+        success_business_num = #{successBusinessNum,jdbcType=INTEGER},
+      </if>
+      <if test="messageTime != null">
+        message_time = #{messageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelTime != null">
+        channel_time = #{channelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        `location` = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.InvUserDetail">
+    <!--@mbg.generated-->
+    update inv_user_detail
+    set latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      sex = #{sex,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      `group` = #{group,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      native_place = #{nativePlace,jdbcType=VARCHAR},
+      docking_enterprise_total = #{dockingEnterpriseTotal,jdbcType=INTEGER},
+      merchants_value = #{merchantsValue,jdbcType=INTEGER},
+      success_business_num = #{successBusinessNum,jdbcType=INTEGER},
+      message_time = #{messageTime,jdbcType=TIMESTAMP},
+      channel_time = #{channelTime,jdbcType=TIMESTAMP},
+      job = #{job,jdbcType=INTEGER},
+      `location` = #{location,jdbcType=VARCHAR},
+      region = #{location,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 用户基本信息 -->
+  <resultMap id="userInfoResult" type="com.quantchi.tianji.service.search.model.UserInfo">
+    <result column="staffId" property="staffId"/>
+    <result column="staffName" property="staffName"/>
+    <result column="departId" property="departId"/>
+    <result column="staffRole" property="staffRole"/>
+    <result column="mobile" property="mobile"/>
+    <result column="region" property="region"/>
+    <result column="staffJob" property="staffJob"/>
+    <result column="staffGroup" property="staffGroup"/>
+    <result column="stationLocation" property="stationLocation"/>
+    <result column="stationLatitude" property="stationLatitude"/>
+    <result column="stationLongitude" property="stationLongitude"/>
+  </resultMap>
+  <select id="getUserInfoByStaffId" parameterType="Object" resultMap="userInfoResult">
+    SELECT iud.user_id staffId, idu.name staffName, idu.department_id departId, idr.role_name staffRole,
+    idu.mobile mobile, iud.job staffJob, iud.group staffGroup, iud.location stationLocation,
+    iud.latitude stationLatitude, iud.longitude stationLongitude, iud.img_url staffImgUrl, iud.region region
+    FROM inv_user_detail iud
+    LEFT JOIN inv_ding_user idu ON iud.user_id = idu.id
+    LEFT JOIN inv_ding_role idr ON idr.depart_id = idu.department_id
+    WHERE iud.user_id = #{staffId}
+  </select>
+
+  <select id="queryGroup" resultType="java.lang.String">
+    <!--@mbg.generated-->
+    select distinct `group` from inv_user_detail
+  </select>
+
+  <select id="queryStaffId" resultType="java.lang.String">
+    <!--@mbg.generated-->
+    select user_id from inv_user_detail where `group` = #{staffGroup}
+  </select>
+
+  <select id="queryStaffIdOne" resultType="com.quantchi.tianji.service.search.model.InvUserDetail">
+    <!--@mbg.generated-->
+    select * from inv_user_detail where `group` = #{staffGroup} limit 1
+  </select>
+
+</mapper>

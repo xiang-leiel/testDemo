@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false">
+    <!-- 磁盘缓存位置 -->
+    <diskStore path="java.io.tmpdir"/>
+    <!-- 默认缓存 -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="600"
+            timeToLiveSeconds="600"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="600"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+
+    <!-- 导航树缓存 -->
+    <cache name="leftTreeNodeCache"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"
+           maxEntriesLocalHeap="10000"
+           maxEntriesLocalDisk="10000000"
+           overflowToDisk="true"
+           >
+    </cache>
+</ehcache>

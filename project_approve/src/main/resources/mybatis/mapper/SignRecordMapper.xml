@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.SignRecordMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.SignRecord">
+    <!--@mbg.generated-->
+    <!--@Table sign_record-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
+    <result column="staff_group" jdbcType="VARCHAR" property="staffGroup" />
+    <result column="visit_location" jdbcType="VARCHAR" property="visitLocation" />
+    <result column="visit_latitude" jdbcType="DOUBLE" property="visitLatitude" />
+    <result column="visit_longitude" jdbcType="DOUBLE" property="visitLongitude" />
+    <result column="distance_total" jdbcType="DOUBLE" property="distanceTotal" />
+    <result column="sign_times" jdbcType="INTEGER" property="signTimes" />
+    <result column="visit_flag" jdbcType="INTEGER" property="visitFlag" />
+    <result column="isDelete" jdbcType="TINYINT" property="isdelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="visit_id" jdbcType="BIGINT" property="visitId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, staff_id, staff_group, visit_location, visit_latitude, visit_longitude, distance_total, 
+    sign_times, visit_flag, isDelete, create_time, visit_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sign_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from sign_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.quantchi.tianji.service.search.model.SignRecord" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sign_record (staff_id, staff_group, visit_location, 
+      visit_latitude, visit_longitude, distance_total, 
+      sign_times, visit_flag, isDelete, 
+      create_time, visit_id)
+    values (#{staffId,jdbcType=VARCHAR}, #{staffGroup,jdbcType=VARCHAR}, #{visitLocation,jdbcType=VARCHAR}, 
+      #{visitLatitude,jdbcType=DOUBLE}, #{visitLongitude,jdbcType=DOUBLE}, #{distanceTotal,jdbcType=DOUBLE}, 
+      #{signTimes,jdbcType=INTEGER}, #{visitFlag,jdbcType=INTEGER}, #{isdelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{visitId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.quantchi.tianji.service.search.model.SignRecord" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sign_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        staff_id,
+      </if>
+      <if test="staffGroup != null">
+        staff_group,
+      </if>
+      <if test="visitLocation != null">
+        visit_location,
+      </if>
+      <if test="visitLatitude != null">
+        visit_latitude,
+      </if>
+      <if test="visitLongitude != null">
+        visit_longitude,
+      </if>
+      <if test="distanceTotal != null">
+        distance_total,
+      </if>
+      <if test="signTimes != null">
+        sign_times,
+      </if>
+      <if test="visitFlag != null">
+        visit_flag,
+      </if>
+      <if test="isdelete != null">
+        isDelete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="visitId != null">
+        visit_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffGroup != null">
+        #{staffGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="visitLocation != null">
+        #{visitLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="visitLatitude != null">
+        #{visitLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="visitLongitude != null">
+        #{visitLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="distanceTotal != null">
+        #{distanceTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="signTimes != null">
+        #{signTimes,jdbcType=INTEGER},
+      </if>
+      <if test="visitFlag != null">
+        #{visitFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitId != null">
+        #{visitId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.SignRecord">
+    <!--@mbg.generated-->
+    update sign_record
+    <set>
+      <if test="staffId != null">
+        staff_id = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffGroup != null">
+        staff_group = #{staffGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="visitLocation != null">
+        visit_location = #{visitLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="visitLatitude != null">
+        visit_latitude = #{visitLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="visitLongitude != null">
+        visit_longitude = #{visitLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="distanceTotal != null">
+        distance_total = #{distanceTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="signTimes != null">
+        sign_times = #{signTimes,jdbcType=INTEGER},
+      </if>
+      <if test="visitFlag != null">
+        visit_flag = #{visitFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null">
+        isDelete = #{isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitId != null">
+        visit_id = #{visitId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.SignRecord">
+    <!--@mbg.generated-->
+    update sign_record
+    set staff_id = #{staffId,jdbcType=VARCHAR},
+      staff_group = #{staffGroup,jdbcType=VARCHAR},
+      visit_location = #{visitLocation,jdbcType=VARCHAR},
+      visit_latitude = #{visitLatitude,jdbcType=DOUBLE},
+      visit_longitude = #{visitLongitude,jdbcType=DOUBLE},
+      distance_total = #{distanceTotal,jdbcType=DOUBLE},
+      sign_times = #{signTimes,jdbcType=INTEGER},
+      visit_flag = #{visitFlag,jdbcType=INTEGER},
+      isDelete = #{isdelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      visit_id = #{visitId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByStaff" parameterType="Object" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from sign_record
+    <where>
+      create_time BETWEEN #{startTime} AND #{endTime}
+      <if test= "staffId != null">
+        AND staff_id = #{staffId}
+      </if>
+      <if test= "staffGroup != null">
+        AND staff_group = #{staffGroup}
+      </if>
+    </where>
+    ORDER BY create_time ASC
+  </select>
+
+
+  <select id="selectByStaffForSign" parameterType="Object" resultType="java.lang.String">
+    <!--@mbg.generated-->
+    select date_format(create_time, '%Y-%m-%d') dat
+    from sign_record
+    where staff_id = #{staffId}
+    AND create_time BETWEEN #{startTime} AND #{endTime}
+    group by date_format(create_time, '%Y-%m-%d');
+  </select>
+
+  <select id="getDistanceByStaff" parameterType="Object" resultType="java.lang.Double">
+    <!--@mbg.generated-->
+    select sum(distance_total)
+    from sign_record
+    where staff_id = #{staffId}
+    AND create_time BETWEEN #{startTime} AND #{endTime}
+  </select>
+
+  <resultMap id="visitRecordMap" type="com.quantchi.tianji.service.search.model.database.VisitRecordDTO">
+    <result column="time_now" property="timeNow"/>
+    <result column="cout" property="cout"/>
+    <result column="distance" property="distance"/>
+  </resultMap>
+
+  <select id="getVisitByStaff" parameterType="Object" resultMap="visitRecordMap">
+    <!--@mbg.generated-->
+    select date_format(create_time, '%Y-%m-%d') time_now, count(visit_location) cout
+    from sign_record
+    where staff_id = #{staffId} and visit_flag = 1
+    AND create_time BETWEEN #{startTime} AND #{endTime}
+    group by date_format(create_time, '%Y-%m-%d')
+  </select>
+
+  <select id="fetchOne" parameterType="Object" resultType="com.quantchi.tianji.service.search.model.SignRecord">
+    <!--@mbg.generated-->
+    select *
+    from sign_record
+    where staff_id = #{staffId}
+    AND create_time BETWEEN #{startTime} AND #{endTime}
+    ORDER by create_time DESC Limit 1
+  </select>
+
+  <select id="getVisitByGroup" parameterType="Object" resultMap="visitRecordMap">
+    <!--@mbg.generated-->
+    select date_format(create_time, '%Y-%m-%d') time_now, count(visit_location) cout, SUM(distance_total) distance
+    from sign_record
+    <where>
+      create_time BETWEEN #{startTime} AND #{endTime}
+      <if test= "staffGroup != null">
+        AND staff_group = #{staffGroup}
+      </if>
+      <if test= "staffId != null">
+        AND staff_id = #{staffId}
+      </if>
+      <if test= "visitFlag != null">
+        AND visit_flag = #{visitFlag}
+      </if>
+    </where>
+    group by date_format(create_time, '%Y-%m-%d')
+  </select>
+
+  <update id="updateById" parameterType="com.quantchi.tianji.service.search.model.SignRecord">
+    <!--@mbg.generated-->
+    update sign_record
+    set distance_total = #{distanceTotal},
+    staff_group = #{staffGroup},
+    sign_times = #{signTimes}
+    where id = #{id}
+  </update>
+
+  <select id="selectOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <!--@mbg.generated-->
+  select
+  <include refid="Base_Column_List" />
+  from sign_record
+  <where>
+    create_time BETWEEN #{startTime} AND #{endTime}
+    <if test= "visitLocation != null">
+      AND visit_location = #{visitLocation}
+    </if>
+    <if test= "staffId != null">
+      AND staff_id = #{staffId}
+    </if>
+    <if test= "id != null">
+      AND id = #{id}
+    </if>
+  </where>
+    limit 1
+  </select>
+
+  <select id="selectByVisitId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from sign_record
+    <where>
+      <if test= "startTime != null and  endTime != null">
+        AND create_time BETWEEN #{startTime} AND #{endTime}
+      </if>
+      <if test= "visitId != null">
+        AND visit_id = #{visitId}
+      </if>
+      <if test= "staffId != null">
+        AND staff_id = #{staffId}
+      </if>
+    </where>
+    limit 1
+  </select>
+</mapper>

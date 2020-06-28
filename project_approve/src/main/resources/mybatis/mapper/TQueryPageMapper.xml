@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.TQueryPageMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.TQueryPage">
+    <!--@mbg.generated-->
+    <!--@Table t_query_page-->
+    <id column="page_id" jdbcType="INTEGER" property="pageId" />
+    <result column="page_title" jdbcType="VARCHAR" property="pageTitle" />
+    <result column="sql" jdbcType="VARCHAR" property="sql" />
+    <result column="result_titles" jdbcType="VARCHAR" property="resultTitles" />
+    <result column="field_name" jdbcType="VARCHAR" property="fieldName" />
+    <result column="method" jdbcType="INTEGER" property="method" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="user_dm" jdbcType="INTEGER" property="userDm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    page_id, page_title, `sql`, result_titles, field_name, `method`, flag, create_time, 
+    user_dm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_query_page
+    where page_id = #{pageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from t_query_page
+    where page_id = #{pageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="page_id" keyProperty="pageId" parameterType="com.quantchi.tianji.service.search.model.TQueryPage" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_query_page (page_title, `sql`, result_titles, 
+      field_name, `method`, flag, 
+      create_time, user_dm)
+    values (#{pageTitle,jdbcType=VARCHAR}, #{sql,jdbcType=VARCHAR}, #{resultTitles,jdbcType=VARCHAR}, 
+      #{fieldName,jdbcType=VARCHAR}, #{method,jdbcType=INTEGER}, #{flag,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{userDm,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="page_id" keyProperty="pageId" parameterType="com.quantchi.tianji.service.search.model.TQueryPage" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_query_page
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pageTitle != null">
+        page_title,
+      </if>
+      <if test="sql != null">
+        `sql`,
+      </if>
+      <if test="resultTitles != null">
+        result_titles,
+      </if>
+      <if test="fieldName != null">
+        field_name,
+      </if>
+      <if test="method != null">
+        `method`,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="userDm != null">
+        user_dm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pageTitle != null">
+        #{pageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sql != null">
+        #{sql,jdbcType=VARCHAR},
+      </if>
+      <if test="resultTitles != null">
+        #{resultTitles,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldName != null">
+        #{fieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        #{userDm,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.TQueryPage">
+    <!--@mbg.generated-->
+    update t_query_page
+    <set>
+      <if test="pageTitle != null">
+        page_title = #{pageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sql != null">
+        `sql` = #{sql,jdbcType=VARCHAR},
+      </if>
+      <if test="resultTitles != null">
+        result_titles = #{resultTitles,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldName != null">
+        field_name = #{fieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        `method` = #{method,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        user_dm = #{userDm,jdbcType=INTEGER},
+      </if>
+    </set>
+    where page_id = #{pageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.TQueryPage">
+    <!--@mbg.generated-->
+    update t_query_page
+    set page_title = #{pageTitle,jdbcType=VARCHAR},
+      `sql` = #{sql,jdbcType=VARCHAR},
+      result_titles = #{resultTitles,jdbcType=VARCHAR},
+      field_name = #{fieldName,jdbcType=VARCHAR},
+      `method` = #{method,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_dm = #{userDm,jdbcType=INTEGER}
+    where page_id = #{pageId,jdbcType=INTEGER}
+  </update>
+    <select id="selectListAll" resultType="com.quantchi.tianji.service.search.model.TQueryCatalog">
+      select * from t_query_page p
+      INNER JOIN t_query_catalog c
+      where p.page_id = c.page_id and c.flag = 1
+      and p.page_id = #{pageId}
+    </select>
+  <select id="selectByCatalogId" resultType="com.quantchi.tianji.service.search.model.TQueryCatalog">
+    select * from t_query_catalog where flag = 1 and parent_id = #{catalogId}
+  </select>
+  <select id="selectOneByCatalogId" resultType="com.quantchi.tianji.service.search.model.TQueryCatalog">
+    select * from t_query_catalog where flag = 1 and catalog_id = #{catalogId}
+  </select>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.EntityLogDao">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.EntityLog">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="entry" jdbcType="VARCHAR" property="entry" />
+    <result column="log_times" jdbcType="INTEGER" property="logTimes" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, type, entry, log_times
+  </sql>
+  <select id="getOne" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from entity_log where id = #{id}
+  </select>
+  <select id="getOneByIdAndType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from entity_log where id = #{id} and entry = #{entry}
+  </select>
+  <select id="getTop5" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from entity_log where entry='search' and type=#{type} ORDER BY log_times DESC limit 5
+  </select>
+  <insert id="insert" parameterType="com.quantchi.tianji.service.search.model.EntityLog">
+    insert into entity_log (id, `name`, `type`, 
+      entry, log_times)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{entry,jdbcType=VARCHAR}, #{logTimes,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.quantchi.tianji.service.search.model.EntityLog">
+    insert into entity_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="entry != null">
+        entry,
+      </if>
+      <if test="logTimes != null">
+        log_times,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="entry != null">
+        #{entry,jdbcType=VARCHAR},
+      </if>
+      <if test="logTimes != null">
+        #{logTimes,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateSelective" parameterType="com.quantchi.tianji.service.search.model.EntityLog">
+    update entity_log set
+      <if test="id != null">
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="entry != null">
+        entry = #{entry,jdbcType=VARCHAR},
+      </if>
+      <if test="logTimes != null">
+        log_times = #{logTimes,jdbcType=INTEGER}
+      </if>
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

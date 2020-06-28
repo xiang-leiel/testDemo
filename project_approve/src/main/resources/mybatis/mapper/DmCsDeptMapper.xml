@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.DmCsDeptMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.DmCsDept">
+    <!--@mbg.generated-->
+    <!--@Table dm_cs_dept-->
+    <id column="dept_dm" jdbcType="INTEGER" property="deptDm" />
+    <result column="dept_type" jdbcType="INTEGER" property="deptType" />
+    <result column="dept_sj_dm" jdbcType="INTEGER" property="deptSjDm" />
+    <result column="bmmc" jdbcType="VARCHAR" property="bmmc" />
+    <result column="dept_dydm" jdbcType="INTEGER" property="deptDydm" />
+    <result column="qybj" jdbcType="INTEGER" property="qybj" />
+    <result column="czrq" jdbcType="TIMESTAMP" property="czrq" />
+    <result column="xgrq" jdbcType="TIMESTAMP" property="xgrq" />
+    <result column="user_dm" jdbcType="INTEGER" property="userDm" />
+    <result column="dept_sort" jdbcType="INTEGER" property="deptSort" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    dept_dm, dept_type, dept_sj_dm, bmmc, dept_dydm, qybj, czrq, xgrq, user_dm, dept_sort
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from dm_cs_dept
+    where dept_dm = #{deptDm,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from dm_cs_dept
+    where dept_dm = #{deptDm,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="dept_dm" keyProperty="deptDm" parameterType="com.quantchi.tianji.service.search.model.DmCsDept" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dm_cs_dept (dept_type, dept_sj_dm, bmmc, 
+      dept_dydm, qybj, czrq, 
+      xgrq, user_dm, dept_sort
+      )
+    values (#{deptType,jdbcType=INTEGER}, #{deptSjDm,jdbcType=INTEGER}, #{bmmc,jdbcType=VARCHAR}, 
+      #{deptDydm,jdbcType=INTEGER}, #{qybj,jdbcType=INTEGER}, #{czrq,jdbcType=TIMESTAMP}, 
+      #{xgrq,jdbcType=TIMESTAMP}, #{userDm,jdbcType=INTEGER}, #{deptSort,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="dept_dm" keyProperty="deptDm" parameterType="com.quantchi.tianji.service.search.model.DmCsDept" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dm_cs_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deptType != null">
+        dept_type,
+      </if>
+      <if test="deptSjDm != null">
+        dept_sj_dm,
+      </if>
+      <if test="bmmc != null">
+        bmmc,
+      </if>
+      <if test="deptDydm != null">
+        dept_dydm,
+      </if>
+      <if test="qybj != null">
+        qybj,
+      </if>
+      <if test="czrq != null">
+        czrq,
+      </if>
+      <if test="xgrq != null">
+        xgrq,
+      </if>
+      <if test="userDm != null">
+        user_dm,
+      </if>
+      <if test="deptSort != null">
+        dept_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deptType != null">
+        #{deptType,jdbcType=INTEGER},
+      </if>
+      <if test="deptSjDm != null">
+        #{deptSjDm,jdbcType=INTEGER},
+      </if>
+      <if test="bmmc != null">
+        #{bmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="deptDydm != null">
+        #{deptDydm,jdbcType=INTEGER},
+      </if>
+      <if test="qybj != null">
+        #{qybj,jdbcType=INTEGER},
+      </if>
+      <if test="czrq != null">
+        #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        #{userDm,jdbcType=INTEGER},
+      </if>
+      <if test="deptSort != null">
+        #{deptSort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.DmCsDept">
+    <!--@mbg.generated-->
+    update dm_cs_dept
+    <set>
+      <if test="deptType != null">
+        dept_type = #{deptType,jdbcType=INTEGER},
+      </if>
+      <if test="deptSjDm != null">
+        dept_sj_dm = #{deptSjDm,jdbcType=INTEGER},
+      </if>
+      <if test="bmmc != null">
+        bmmc = #{bmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="deptDydm != null">
+        dept_dydm = #{deptDydm,jdbcType=INTEGER},
+      </if>
+      <if test="qybj != null">
+        qybj = #{qybj,jdbcType=INTEGER},
+      </if>
+      <if test="czrq != null">
+        czrq = #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        user_dm = #{userDm,jdbcType=INTEGER},
+      </if>
+      <if test="deptSort != null">
+        dept_sort = #{deptSort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dept_dm = #{deptDm,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.DmCsDept">
+    <!--@mbg.generated-->
+    update dm_cs_dept
+    set dept_type = #{deptType,jdbcType=INTEGER},
+      dept_sj_dm = #{deptSjDm,jdbcType=INTEGER},
+      bmmc = #{bmmc,jdbcType=VARCHAR},
+      dept_dydm = #{deptDydm,jdbcType=INTEGER},
+      qybj = #{qybj,jdbcType=INTEGER},
+      czrq = #{czrq,jdbcType=TIMESTAMP},
+      xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      user_dm = #{userDm,jdbcType=INTEGER},
+      dept_sort = #{deptSort,jdbcType=INTEGER}
+    where dept_dm = #{deptDm,jdbcType=INTEGER}
+  </update>
+  <select id="selectOneByUserDm" resultType="java.lang.String">
+    select bmmc from dm_cs_dept d
+    INNER JOIN dm_cs_user u
+    Where d.dept_dm = u.dept_dm
+    and u.user_dm = #{userDm}
+  </select>
+
+  <select id="selectOneBydeptName" resultType="java.lang.Integer">
+    select dept_dm from dm_cs_dept
+    where bmmc = #{deptName} and qybj = 1
+  </select>
+  <select id="selectOneBySjDeptDm" resultType="java.lang.Integer">
+    select dept_dm from dm_cs_dept
+    where dept_sj_dm = #{deptDm} and qybj = 1
+  </select>
+  <select id="selectBySjDeptDm" resultMap="BaseResultMap">
+    select * from dm_cs_dept
+    where dept_sj_dm = #{deptDm} and qybj = 1 order by dept_sort asc
+  </select>
+    <select id="selectByType" resultMap="BaseResultMap">
+      select * from dm_cs_dept where qybj = 1
+      and dept_type in (2, 3)
+    </select>
+  <select id="selectByArea" resultMap="BaseResultMap">
+    select * from dm_cs_dept
+    where dept_sj_dm = #{area} and qybj = 1
+  </select>
+  <select id="selectDeptByType" resultMap="BaseResultMap">
+    select * from dm_cs_dept
+    where dept_type = #{type} and qybj = 1
+    order by czrq asc
+  </select>
+</mapper>

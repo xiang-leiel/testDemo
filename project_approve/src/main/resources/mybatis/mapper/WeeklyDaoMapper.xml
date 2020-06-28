@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.WeeklyDao">
+
+    <select id="getUnfinishedJourneyNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+			COUNT(vr.id)
+		FROM
+			visit_record vr
+		WHERE
+			(
+			vr.visit_status = 0
+			OR (
+				vr.visit_status = 1
+				AND NOT EXISTS (
+					SELECT
+						ri.visit_name
+					FROM
+						receptionist_info ri
+					WHERE
+						ri.visit_name = vr.visit_name
+				)
+			)
+		)
+		AND create_time > #{createTime}
+		and staff_id = #{staffId}
+    </select>
+
+	<select id="getFinishedJourneyNum" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT
+			COUNT(vr.id)
+		FROM
+			visit_record vr
+		WHERE
+			(
+			vr.visit_status = 1
+			AND EXISTS (
+				SELECT
+					ri.visit_name
+				FROM
+					receptionist_info ri
+				WHERE
+					ri.visit_name = vr.visit_name
+			)
+		)
+		AND create_time > #{createTime}
+		and staff_id = #{staffId}
+	</select>
+
+	<select id="getNoRecordedProjectNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			COUNT(vr.id)
+		FROM
+			visit_record vr
+		WHERE
+		 vr.`status`=0
+		AND vr.update_time > #{createTime}
+		and vr.staff_id = #{staffId}
+	</select>
+
+	<select id="getRecordedProjectNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			COUNT(vr.id)
+		FROM
+			visit_record vr
+		WHERE
+		 vr.`status`=1
+		AND vr.update_time > #{createTime}
+		and vr.staff_id = #{staffId}
+	</select>
+
+	<select id="getSignNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from sign_record where staff_id = #{staffId} and create_time > #{createTime}
+	</select>
+
+	<select id="getJourneySignNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			COUNT(vr.id)
+		FROM
+			visit_record vr
+		WHERE
+
+		 vr.visit_status = 1
+		and vr.staff_id = #{staffId}
+	</select>
+
+	<select id="getEffectiveNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			COUNT(ri.id)
+		FROM
+			receptionist_info ri,
+			visit_record vr,
+			project_record pr
+		WHERE
+			ri.visit_id = vr.id
+		and vr.id = pr.id
+		AND vr.`status` IN (2, 3, 4)
+		and pr.intention_status in (0,1)
+		AND ri.staff_id = #{staffId}
+		AND EXISTS (
+			SELECT
+				*
+			FROM
+				receptionist_evaluate re
+			WHERE
+				ri.id = re.id
+		)
+	</select>
+
+	<select id="getProjectNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			COUNT(vr.id)
+		FROM
+			visit_record vr
+		WHERE
+		 vr.`status` IN (2, 3, 4)
+		 and vr.staff_id = #{staffId}
+	</select>
+
+	<select id="getWeeklyHistoryNum" parameterType="java.lang.String" resultType="java.util.Map">
+		select record_project recordProject, sign_num signNum, create_time createTime, id
+		 from inv_weekly_info where staff_id = #{staffId} order BY create_time desc
+	</select>
+
+	<select id="getProjectInfoNum" parameterType="java.util.Map" resultType="java.util.Map">
+		select  u.id,
+		IFNULL(r.uploadNum,0)uploadNum,
+		IFNULL(s.signNum,0)signNum  from
+		(select id from inv_ding_user)u
+		LEFT JOIN(SELECT
+					COUNT(vr.id) uploadNum ,staff_id
+				FROM
+					visit_record vr
+				WHERE
+				 vr.`status`=1
+				 AND vr.update_time > #{createTime}
+				GROUP BY vr.staff_id
+		) r on u.id = r.staff_id
+		LEFT JOIN(
+		SELECT
+			count(id) signNum,
+			staff_id
+		FROM
+			sign_record
+			where  create_time > #{createTime}
+		GROUP BY
+			staff_id
+		) s ON u.id = s.staff_id
+	</select>
+
+	<insert id="addWeeklyHistory" parameterType="java.util.List">
+		insert into inv_weekly_info(staff_id, record_project, sign_num, create_time)
+		values
+				<foreach collection="list" item="map" separator=",">
+					(#{map.id}, #{map.uploadNum}, #{map.signNum}, now())
+				</foreach>
+	</insert>
+
+	<update id="updateProjectStatus" >
+		update visit_record set `status` = 2, update_time = NOW(), report_time = NOW() WHERE `status`=1
+	</update>
+</mapper>

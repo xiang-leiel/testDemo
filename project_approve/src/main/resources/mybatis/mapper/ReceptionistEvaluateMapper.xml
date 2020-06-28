@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.ReceptionistEvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.ReceptionistEvaluate">
+    <!--@mbg.generated-->
+    <!--@Table receptionist_evaluate-->
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
+    <result column="relation" jdbcType="VARCHAR" property="relation" />
+    <result column="visited" jdbcType="VARCHAR" property="visited" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="univesity" jdbcType="VARCHAR" property="univesity" />
+    <result column="character" jdbcType="VARCHAR" property="character" />
+    <result column="favorite" jdbcType="VARCHAR" property="favorite" />
+    <result column="tea" jdbcType="VARCHAR" property="tea" />
+    <result column="wine" jdbcType="VARCHAR" property="wine" />
+    <result column="tobacco" jdbcType="VARCHAR" property="tobacco" />
+    <result column="diet" jdbcType="VARCHAR" property="diet" />
+    <result column="label_one" jdbcType="VARCHAR" property="labelOne" />
+    <result column="hometown" jdbcType="VARCHAR" property="hometown" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+    <result column="office" jdbcType="VARCHAR" property="office" />
+    <result column="label_two" jdbcType="VARCHAR" property="labelTwo" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="kids" jdbcType="VARCHAR" property="kids" />
+    <result column="kids_favorite" jdbcType="VARCHAR" property="kidsFavorite" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.quantchi.tianji.service.search.model.ReceptionistEvaluate">
+    <!--@mbg.generated-->
+    insert into receptionist_evaluate (id, staff_id, relation, 
+      visited, birthday, univesity, 
+      `character`, favorite, tea, 
+      wine, tobacco, diet, 
+      label_one, hometown, profession, 
+      office, label_two, remark, 
+      kids, kids_favorite, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{staffId,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, 
+      #{visited,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{univesity,jdbcType=VARCHAR}, 
+      #{character,jdbcType=VARCHAR}, #{favorite,jdbcType=VARCHAR}, #{tea,jdbcType=VARCHAR}, 
+      #{wine,jdbcType=VARCHAR}, #{tobacco,jdbcType=VARCHAR}, #{diet,jdbcType=VARCHAR}, 
+      #{labelOne,jdbcType=VARCHAR}, #{hometown,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{office,jdbcType=VARCHAR}, #{labelTwo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{kids,jdbcType=VARCHAR}, #{kidsFavorite,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.quantchi.tianji.service.search.model.ReceptionistEvaluate">
+    <!--@mbg.generated-->
+    insert into receptionist_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="staffId != null">
+        staff_id,
+      </if>
+      <if test="relation != null">
+        relation,
+      </if>
+      <if test="visited != null">
+        visited,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="univesity != null">
+        univesity,
+      </if>
+      <if test="character != null">
+        `character`,
+      </if>
+      <if test="favorite != null">
+        favorite,
+      </if>
+      <if test="tea != null">
+        tea,
+      </if>
+      <if test="wine != null">
+        wine,
+      </if>
+      <if test="tobacco != null">
+        tobacco,
+      </if>
+      <if test="diet != null">
+        diet,
+      </if>
+      <if test="labelOne != null">
+        label_one,
+      </if>
+      <if test="hometown != null">
+        hometown,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+      <if test="office != null">
+        office,
+      </if>
+      <if test="labelTwo != null">
+        label_two,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="kids != null">
+        kids,
+      </if>
+      <if test="kidsFavorite != null">
+        kids_favorite,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="visited != null">
+        #{visited,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="univesity != null">
+        #{univesity,jdbcType=VARCHAR},
+      </if>
+      <if test="character != null">
+        #{character,jdbcType=VARCHAR},
+      </if>
+      <if test="favorite != null">
+        #{favorite,jdbcType=VARCHAR},
+      </if>
+      <if test="tea != null">
+        #{tea,jdbcType=VARCHAR},
+      </if>
+      <if test="wine != null">
+        #{wine,jdbcType=VARCHAR},
+      </if>
+      <if test="tobacco != null">
+        #{tobacco,jdbcType=VARCHAR},
+      </if>
+      <if test="diet != null">
+        #{diet,jdbcType=VARCHAR},
+      </if>
+      <if test="labelOne != null">
+        #{labelOne,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null">
+        #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="office != null">
+        #{office,jdbcType=VARCHAR},
+      </if>
+      <if test="labelTwo != null">
+        #{labelTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="kids != null">
+        #{kids,jdbcType=VARCHAR},
+      </if>
+      <if test="kidsFavorite != null">
+        #{kidsFavorite,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectById" parameterType="Object" resultType="com.quantchi.tianji.service.search.model.ReceptionistEvaluate">
+    <!--@mbg.generated-->
+    select * from receptionist_evaluate
+    <where>
+      <if test= "id != null">
+        AND `id` = #{id}
+      </if>
+    </where>
+  </select>
+</mapper>

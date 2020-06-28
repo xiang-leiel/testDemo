@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.XmjbxxZbMapper">
+  <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.model.XmjbxxZb">
+    <!--@mbg.generated-->
+    <!--@Table xmjbxx_zb-->
+    <id column="xmjbxx_id" jdbcType="VARCHAR" property="xmjbxxId" />
+    <result column="xmmc" jdbcType="VARCHAR" property="xmmc" />
+    <result column="xmzt_dm" jdbcType="INTEGER" property="xmztDm" />
+    <result column="cylx_bj" jdbcType="INTEGER" property="cylxBj" />
+    <result column="gj_dm" jdbcType="INTEGER" property="gjDm" />
+    <result column="xzqh_dm" jdbcType="INTEGER" property="xzqhDm" />
+    <result column="xm_nr" jdbcType="VARCHAR" property="xmNr" />
+    <result column="xm_hyly" jdbcType="VARCHAR" property="xmHyly" />
+    <result column="xm_xyd" jdbcType="DECIMAL" property="xmXyd" />
+    <result column="xm_ydlxbj" jdbcType="INTEGER" property="xmYdlxbj" />
+    <result column="xyd_unit" jdbcType="INTEGER" property="xydUnit" />
+    <result column="xm_bgmj" jdbcType="DECIMAL" property="xmBgmj" />
+    <result column="xm_ztz" jdbcType="DECIMAL" property="xmZtz" />
+    <result column="xm_gdtzzc" jdbcType="DECIMAL" property="xmGdtzzc" />
+    <result column="hbdw_dm" jdbcType="INTEGER" property="hbdwDm" />
+    <result column="tzgm_dm" jdbcType="INTEGER" property="tzgmDm" />
+    <result column="ldpt_dept_dm" jdbcType="INTEGER" property="ldptDeptDm" />
+    <result column="zsz_dept_dm" jdbcType="INTEGER" property="zszDeptDm" />
+    <result column="tzf_xzqh_dm" jdbcType="INTEGER" property="tzfXzqhDm" />
+    <result column="xm_qtyq" jdbcType="VARCHAR" property="xmQtyq" />
+    <result column="tzyx_dm" jdbcType="INTEGER" property="tzyxDm" />
+    <result column="tzyxrq" jdbcType="DATE" property="tzyxrq" />
+    <result column="sbr_user_dm" jdbcType="VARCHAR" property="sbrUserDm" />
+    <result column="bz" jdbcType="VARCHAR" property="bz" />
+    <result column="czrq" jdbcType="TIMESTAMP" property="czrq" />
+    <result column="xgrq" jdbcType="TIMESTAMP" property="xgrq" />
+    <result column="sbrq" jdbcType="TIMESTAMP" property="sbrq" />
+    <result column="user_dm" jdbcType="INTEGER" property="userDm" />
+    <result column="xm_ycbj" jdbcType="INTEGER" property="xmYcbj" />
+    <result column="master_user_dm" jdbcType="INTEGER" property="masterUserDm" />
+    <result column="qybj" jdbcType="INTEGER" property="qybj" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    xmjbxx_id, xmmc, xmzt_dm, cylx_bj, gj_dm, xzqh_dm, xm_nr, xm_hyly, xm_xyd, xm_ydlxbj, 
+    xyd_unit, xm_bgmj, xm_ztz, xm_gdtzzc, hbdw_dm, tzgm_dm, ldpt_dept_dm, zsz_dept_dm, 
+    tzf_xzqh_dm, xm_qtyq, tzyx_dm, tzyxrq, sbr_user_dm, bz, czrq, xgrq, sbrq, user_dm, 
+    xm_ycbj, master_user_dm, qybj
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from xmjbxx_zb
+    where xmjbxx_id = #{xmjbxxId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from xmjbxx_zb
+    where xmjbxx_id = #{xmjbxxId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.quantchi.tianji.service.search.model.XmjbxxZb">
+    <!--@mbg.generated-->
+    insert into xmjbxx_zb (xmjbxx_id, xmmc, xmzt_dm, 
+      cylx_bj, gj_dm, xzqh_dm, 
+      xm_nr, xm_hyly, xm_xyd, 
+      xm_ydlxbj, xyd_unit, xm_bgmj, 
+      xm_ztz, xm_gdtzzc, hbdw_dm, 
+      tzgm_dm, ldpt_dept_dm, zsz_dept_dm, 
+      tzf_xzqh_dm, xm_qtyq, tzyx_dm, 
+      tzyxrq, sbr_user_dm, bz, 
+      czrq, xgrq, sbrq, 
+      user_dm, xm_ycbj, master_user_dm, 
+      qybj)
+    values (#{xmjbxxId,jdbcType=VARCHAR}, #{xmmc,jdbcType=VARCHAR}, #{xmztDm,jdbcType=INTEGER}, 
+      #{cylxBj,jdbcType=INTEGER}, #{gjDm,jdbcType=INTEGER}, #{xzqhDm,jdbcType=INTEGER}, 
+      #{xmNr,jdbcType=VARCHAR}, #{xmHyly,jdbcType=VARCHAR}, #{xmXyd,jdbcType=DECIMAL}, 
+      #{xmYdlxbj,jdbcType=INTEGER}, #{xydUnit,jdbcType=INTEGER}, #{xmBgmj,jdbcType=DECIMAL}, 
+      #{xmZtz,jdbcType=DECIMAL}, #{xmGdtzzc,jdbcType=DECIMAL}, #{hbdwDm,jdbcType=INTEGER}, 
+      #{tzgmDm,jdbcType=INTEGER}, #{ldptDeptDm,jdbcType=INTEGER}, #{zszDeptDm,jdbcType=INTEGER}, 
+      #{tzfXzqhDm,jdbcType=INTEGER}, #{xmQtyq,jdbcType=VARCHAR}, #{tzyxDm,jdbcType=INTEGER}, 
+      #{tzyxrq,jdbcType=DATE}, #{sbrUserDm,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, 
+      #{czrq,jdbcType=TIMESTAMP}, #{xgrq,jdbcType=TIMESTAMP}, #{sbrq,jdbcType=TIMESTAMP}, 
+      #{userDm,jdbcType=INTEGER}, #{xmYcbj,jdbcType=INTEGER}, #{masterUserDm,jdbcType=INTEGER}, 
+      #{qybj,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.quantchi.tianji.service.search.model.XmjbxxZb">
+    <!--@mbg.generated-->
+    insert into xmjbxx_zb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xmjbxxId != null">
+        xmjbxx_id,
+      </if>
+      <if test="xmmc != null">
+        xmmc,
+      </if>
+      <if test="xmztDm != null">
+        xmzt_dm,
+      </if>
+      <if test="cylxBj != null">
+        cylx_bj,
+      </if>
+      <if test="gjDm != null">
+        gj_dm,
+      </if>
+      <if test="xzqhDm != null">
+        xzqh_dm,
+      </if>
+      <if test="xmNr != null">
+        xm_nr,
+      </if>
+      <if test="xmHyly != null">
+        xm_hyly,
+      </if>
+      <if test="xmXyd != null">
+        xm_xyd,
+      </if>
+      <if test="xmYdlxbj != null">
+        xm_ydlxbj,
+      </if>
+      <if test="xydUnit != null">
+        xyd_unit,
+      </if>
+      <if test="xmBgmj != null">
+        xm_bgmj,
+      </if>
+      <if test="xmZtz != null">
+        xm_ztz,
+      </if>
+      <if test="xmGdtzzc != null">
+        xm_gdtzzc,
+      </if>
+      <if test="hbdwDm != null">
+        hbdw_dm,
+      </if>
+      <if test="tzgmDm != null">
+        tzgm_dm,
+      </if>
+      <if test="ldptDeptDm != null">
+        ldpt_dept_dm,
+      </if>
+      <if test="zszDeptDm != null">
+        zsz_dept_dm,
+      </if>
+      <if test="tzfXzqhDm != null">
+        tzf_xzqh_dm,
+      </if>
+      <if test="xmQtyq != null">
+        xm_qtyq,
+      </if>
+      <if test="tzyxDm != null">
+        tzyx_dm,
+      </if>
+      <if test="tzyxrq != null">
+        tzyxrq,
+      </if>
+      <if test="sbrUserDm != null">
+        sbr_user_dm,
+      </if>
+      <if test="bz != null">
+        bz,
+      </if>
+      <if test="czrq != null">
+        czrq,
+      </if>
+      <if test="xgrq != null">
+        xgrq,
+      </if>
+      <if test="sbrq != null">
+        sbrq,
+      </if>
+      <if test="userDm != null">
+        user_dm,
+      </if>
+      <if test="xmYcbj != null">
+        xm_ycbj,
+      </if>
+      <if test="masterUserDm != null">
+        master_user_dm,
+      </if>
+      <if test="qybj != null">
+        qybj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xmjbxxId != null">
+        #{xmjbxxId,jdbcType=VARCHAR},
+      </if>
+      <if test="xmmc != null">
+        #{xmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="xmztDm != null">
+        #{xmztDm,jdbcType=INTEGER},
+      </if>
+      <if test="cylxBj != null">
+        #{cylxBj,jdbcType=INTEGER},
+      </if>
+      <if test="gjDm != null">
+        #{gjDm,jdbcType=INTEGER},
+      </if>
+      <if test="xzqhDm != null">
+        #{xzqhDm,jdbcType=INTEGER},
+      </if>
+      <if test="xmNr != null">
+        #{xmNr,jdbcType=VARCHAR},
+      </if>
+      <if test="xmHyly != null">
+        #{xmHyly,jdbcType=VARCHAR},
+      </if>
+      <if test="xmXyd != null">
+        #{xmXyd,jdbcType=DECIMAL},
+      </if>
+      <if test="xmYdlxbj != null">
+        #{xmYdlxbj,jdbcType=INTEGER},
+      </if>
+      <if test="xydUnit != null">
+        #{xydUnit,jdbcType=INTEGER},
+      </if>
+      <if test="xmBgmj != null">
+        #{xmBgmj,jdbcType=DECIMAL},
+      </if>
+      <if test="xmZtz != null">
+        #{xmZtz,jdbcType=DECIMAL},
+      </if>
+      <if test="xmGdtzzc != null">
+        #{xmGdtzzc,jdbcType=DECIMAL},
+      </if>
+      <if test="hbdwDm != null">
+        #{hbdwDm,jdbcType=INTEGER},
+      </if>
+      <if test="tzgmDm != null">
+        #{tzgmDm,jdbcType=INTEGER},
+      </if>
+      <if test="ldptDeptDm != null">
+        #{ldptDeptDm,jdbcType=INTEGER},
+      </if>
+      <if test="zszDeptDm != null">
+        #{zszDeptDm,jdbcType=INTEGER},
+      </if>
+      <if test="tzfXzqhDm != null">
+        #{tzfXzqhDm,jdbcType=INTEGER},
+      </if>
+      <if test="xmQtyq != null">
+        #{xmQtyq,jdbcType=VARCHAR},
+      </if>
+      <if test="tzyxDm != null">
+        #{tzyxDm,jdbcType=INTEGER},
+      </if>
+      <if test="tzyxrq != null">
+        #{tzyxrq,jdbcType=DATE},
+      </if>
+      <if test="sbrUserDm != null">
+        #{sbrUserDm,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="czrq != null">
+        #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sbrq != null">
+        #{sbrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        #{userDm,jdbcType=INTEGER},
+      </if>
+      <if test="xmYcbj != null">
+        #{xmYcbj,jdbcType=INTEGER},
+      </if>
+      <if test="masterUserDm != null">
+        #{masterUserDm,jdbcType=INTEGER},
+      </if>
+      <if test="qybj != null">
+        #{qybj,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quantchi.tianji.service.search.model.XmjbxxZb">
+    <!--@mbg.generated-->
+    update xmjbxx_zb
+    <set>
+      <if test="xmmc != null">
+        xmmc = #{xmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="xmztDm != null">
+        xmzt_dm = #{xmztDm,jdbcType=INTEGER},
+      </if>
+      <if test="cylxBj != null">
+        cylx_bj = #{cylxBj,jdbcType=INTEGER},
+      </if>
+      <if test="gjDm != null">
+        gj_dm = #{gjDm,jdbcType=INTEGER},
+      </if>
+      <if test="xzqhDm != null">
+        xzqh_dm = #{xzqhDm,jdbcType=INTEGER},
+      </if>
+      <if test="xmNr != null">
+        xm_nr = #{xmNr,jdbcType=VARCHAR},
+      </if>
+      <if test="xmHyly != null">
+        xm_hyly = #{xmHyly,jdbcType=VARCHAR},
+      </if>
+      <if test="xmXyd != null">
+        xm_xyd = #{xmXyd,jdbcType=DECIMAL},
+      </if>
+      <if test="xmYdlxbj != null">
+        xm_ydlxbj = #{xmYdlxbj,jdbcType=INTEGER},
+      </if>
+      <if test="xydUnit != null">
+        xyd_unit = #{xydUnit,jdbcType=INTEGER},
+      </if>
+      <if test="xmBgmj != null">
+        xm_bgmj = #{xmBgmj,jdbcType=DECIMAL},
+      </if>
+      <if test="xmZtz != null">
+        xm_ztz = #{xmZtz,jdbcType=DECIMAL},
+      </if>
+      <if test="xmGdtzzc != null">
+        xm_gdtzzc = #{xmGdtzzc,jdbcType=DECIMAL},
+      </if>
+      <if test="hbdwDm != null">
+        hbdw_dm = #{hbdwDm,jdbcType=INTEGER},
+      </if>
+      <if test="tzgmDm != null">
+        tzgm_dm = #{tzgmDm,jdbcType=INTEGER},
+      </if>
+      <if test="ldptDeptDm != null">
+        ldpt_dept_dm = #{ldptDeptDm,jdbcType=INTEGER},
+      </if>
+      <if test="zszDeptDm != null">
+        zsz_dept_dm = #{zszDeptDm,jdbcType=INTEGER},
+      </if>
+      <if test="tzfXzqhDm != null">
+        tzf_xzqh_dm = #{tzfXzqhDm,jdbcType=INTEGER},
+      </if>
+      <if test="xmQtyq != null">
+        xm_qtyq = #{xmQtyq,jdbcType=VARCHAR},
+      </if>
+      <if test="tzyxDm != null">
+        tzyx_dm = #{tzyxDm,jdbcType=INTEGER},
+      </if>
+      <if test="tzyxrq != null">
+        tzyxrq = #{tzyxrq,jdbcType=DATE},
+      </if>
+      <if test="sbrUserDm != null">
+        sbr_user_dm = #{sbrUserDm,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        bz = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="czrq != null">
+        czrq = #{czrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgrq != null">
+        xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sbrq != null">
+        sbrq = #{sbrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDm != null">
+        user_dm = #{userDm,jdbcType=INTEGER},
+      </if>
+      <if test="xmYcbj != null">
+        xm_ycbj = #{xmYcbj,jdbcType=INTEGER},
+      </if>
+      <if test="masterUserDm != null">
+        master_user_dm = #{masterUserDm,jdbcType=INTEGER},
+      </if>
+      <if test="qybj != null">
+        qybj = #{qybj,jdbcType=INTEGER},
+      </if>
+    </set>
+    where xmjbxx_id = #{xmjbxxId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quantchi.tianji.service.search.model.XmjbxxZb">
+    <!--@mbg.generated-->
+    update xmjbxx_zb
+    set xmmc = #{xmmc,jdbcType=VARCHAR},
+      xmzt_dm = #{xmztDm,jdbcType=INTEGER},
+      cylx_bj = #{cylxBj,jdbcType=INTEGER},
+      gj_dm = #{gjDm,jdbcType=INTEGER},
+      xzqh_dm = #{xzqhDm,jdbcType=INTEGER},
+      xm_nr = #{xmNr,jdbcType=VARCHAR},
+      xm_hyly = #{xmHyly,jdbcType=VARCHAR},
+      xm_xyd = #{xmXyd,jdbcType=DECIMAL},
+      xm_ydlxbj = #{xmYdlxbj,jdbcType=INTEGER},
+      xyd_unit = #{xydUnit,jdbcType=INTEGER},
+      xm_bgmj = #{xmBgmj,jdbcType=DECIMAL},
+      xm_ztz = #{xmZtz,jdbcType=DECIMAL},
+      xm_gdtzzc = #{xmGdtzzc,jdbcType=DECIMAL},
+      hbdw_dm = #{hbdwDm,jdbcType=INTEGER},
+      tzgm_dm = #{tzgmDm,jdbcType=INTEGER},
+      ldpt_dept_dm = #{ldptDeptDm,jdbcType=INTEGER},
+      zsz_dept_dm = #{zszDeptDm,jdbcType=INTEGER},
+      tzf_xzqh_dm = #{tzfXzqhDm,jdbcType=INTEGER},
+      xm_qtyq = #{xmQtyq,jdbcType=VARCHAR},
+      tzyx_dm = #{tzyxDm,jdbcType=INTEGER},
+      tzyxrq = #{tzyxrq,jdbcType=DATE},
+      sbr_user_dm = #{sbrUserDm,jdbcType=VARCHAR},
+      bz = #{bz,jdbcType=VARCHAR},
+      czrq = #{czrq,jdbcType=TIMESTAMP},
+      xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      sbrq = #{sbrq,jdbcType=TIMESTAMP},
+      user_dm = #{userDm,jdbcType=INTEGER},
+      xm_ycbj = #{xmYcbj,jdbcType=INTEGER},
+      master_user_dm = #{masterUserDm,jdbcType=INTEGER},
+      qybj = #{qybj,jdbcType=INTEGER}
+    where xmjbxx_id = #{xmjbxxId,jdbcType=VARCHAR}
+  </update>
+    <select id="queryReportDataAll" parameterType="com.quantchi.tianji.service.search.model.ProjectReportDTO" resultMap="BaseResultMap">
+      SELECT *
+      FROM xmjbxx_zb x
+      WHERE x.qybj = 1
+      <if test="investUnits !=null and investUnits.size &gt; 0">
+        and tzgm_dm in
+        <foreach close=")" collection="investUnits" index="index" item="item" open="(" separator=",">
+          #{item}
+        </foreach>
+      </if>
+        <if test="projectLabels !=null and projectLabels.size &gt; 0">
+            and xmjbxx_id in(select b.xmjbxx_id from xm_gl_bqly b
+            INNER JOIN dm_cs_bqly d where b.bqly_dm = d.bqly_dm and b.qybj = 1 and d.bqlybj = 1 and b.bqly_dm in
+            <foreach close=")" collection="projectLabels" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="fields !=null and fields.size &gt; 0">
+            and xmjbxx_id in(select b.xmjbxx_id from xm_gl_bqly b
+            INNER JOIN dm_cs_bqly d where b.bqly_dm = d.bqly_dm and b.qybj = 1 and d.bqlybj = 2 and b.bqly_dm in
+            <foreach close=")" collection="fields" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+      <if test="departmentList !=null and departmentList.size &gt; 0">
+        and zsz_dept_dm in
+        <foreach close=")" collection="departmentList" index="index" item="item" open="(" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="statusList !=null and statusList.size &gt; 0">
+        and xmzt_dm in
+        <foreach close=")" collection="statusList" index="index" item="item" open="(" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="projectName != null">
+        and xmmc LIKE CONCAT('%', #{projectName}, '%')
+        or (select xt.tzfmc
+        from xm_gl_tzf xgt
+        left join xmjbxx_zb xz on xgt.xmjbxx_id = xz.xmjbxx_id
+        left join xm_tzf xt on xt.tzf_id = xgt.tzf_id
+        where xgt.xmjbxx_id  = x.xmjbxx_id and xz.qybj = 1 limit 1) like CONCAT('%', #{projectName}, '%')
+      </if>
+      <if test="reportStartTime !=null and reportEndTime !=null ">
+        and sbrq BETWEEN #{reportStartTime} AND #{reportEndTime}
+      </if>
+      order by sbrq desc
+    </select>
+  <select id="statisticalProvince" resultType="java.lang.Integer">
+    SELECT DISTINCT tzf_xzqh_dm FROM xmjbxx_zb
+    WHERE qybj = 1
+    <if test="deptDms !=null and deptDms.size &gt; 0">
+      and zsz_dept_dm in
+      <foreach close=")" collection="deptDms" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+  <select id="selectListLikeName" resultMap="BaseResultMap">
+    select * from xmjbxx_zb
+    <where>
+      qybj = 1
+      <if test="projectName != null">
+        and xmmc LIKE CONCAT('%', #{projectName}, '%')
+      </if>
+    </where>
+  </select>
+  <select id="countByXmBq" resultType="java.lang.Integer">
+    select COUNT(1) from xmjbxx_zb z
+    INNER JOIN xm_gl_bqly b
+    where z.xmjbxx_id = b.xmjbxx_id and z.xmzt_dm = #{status}
+    and b.bqly_dm = #{bqdm} and z.qybj = 1 and b.qybj = 1
+    <if test="deptDm != null ">
+      and z.zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and z.xgrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+  <select id="countByScal" resultType="java.lang.Integer">
+    select COUNT(1) from xmjbxx_zb z
+    INNER JOIN xm_gl_tzgm t
+    where z.xmzt_dm = #{status} and z.xmjbxx_id = t.xmjbxx_id
+    and t.tzgm_dm = #{scale} and z.qybj = 1
+    <if test="deptDm != null ">
+      and z.zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and z.xgrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+    <select id="countReportByXmBq" resultType="java.lang.Integer">
+        select COUNT(1) from xmjbxx_zb z
+        INNER JOIN xm_gl_bqly b
+        where z.xmjbxx_id = b.xmjbxx_id
+        and b.bqly_dm = #{bqdm} and z.qybj = 1 and b.qybj = 1
+        <if test="deptDm != null ">
+            and z.zsz_dept_dm = #{deptDm}
+        </if>
+        <if test="startTime !=null and endTime !=null ">
+            and z.sbrq BETWEEN #{startTime} AND #{endTime}
+        </if>
+    </select>
+    <select id="countReportByScal" resultType="java.lang.Integer">
+        select COUNT(1) from xmjbxx_zb z
+        INNER JOIN xm_gl_tzgm t
+        where z.xmjbxx_id = t.xmjbxx_id
+        and t.tzgm_dm = #{scale} and z.qybj = 1
+        <if test="deptDm != null ">
+            and z.zsz_dept_dm = #{deptDm}
+        </if>
+        <if test="startTime !=null and endTime !=null ">
+            and z.sbrq BETWEEN #{startTime} AND #{endTime}
+        </if>
+    </select>
+
+  <select id="countReportByDeptDm" resultType="java.lang.Integer">
+    select count(1) from xmjbxx_zb where qybj = 1
+    <if test="deptDm != null ">
+      and zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="industryType != null ">
+      and cylx_bj = #{industryType}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and sbrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+  <select id="selectReportDataByDept" resultMap="BaseResultMap">
+    select * from xmjbxx_zb
+    where qybj = 1
+    <if test="deptDm != null ">
+      and zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and sbrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+    order by sbrq desc
+  </select>
+  <select id="selectSignDataByDept" resultMap="BaseResultMap">
+    select * from xmjbxx_zb
+    where xmzt_dm = 7 and qybj = 1
+    <if test="deptDm != null ">
+      and zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and xgrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+    order by xgrq desc
+  </select>
+  <select id="selectSignByScal" resultMap="BaseResultMap">
+    select * from xmjbxx_zb z
+    INNER JOIN xm_gl_tzgm t
+    where z.xmjbxx_id = t.xmjbxx_id
+    and t.tzgm_dm = #{scale} and z.qybj = 1
+    <if test="status != null ">
+      and z.xmzt_dm = #{status}
+    </if>
+    <if test="deptDm != null ">
+      and z.zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and z.xgrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+
+  </select>
+  <select id="selectSignByBqdm" resultMap="BaseResultMap">
+    select * from xmjbxx_zb z
+    INNER JOIN xm_gl_bqly b
+    where z.xmjbxx_id = b.xmjbxx_id
+    and b.bqly_dm = #{bqdm} and z.qybj = 1
+    <if test="status != null ">
+      and z.xmzt_dm = #{status}
+    </if>
+    <if test="deptDm != null ">
+      and z.zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and z.xgrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+
+  <select id="selectReportByScal" resultMap="BaseResultMap">
+    select * from xmjbxx_zb z
+    INNER JOIN xm_gl_tzgm t
+    where z.xmjbxx_id = t.xmjbxx_id
+    and t.tzgm_dm = #{scale} and z.qybj = 1
+    <if test="status != null ">
+      and z.xmzt_dm = #{status}
+    </if>
+    <if test="deptDm != null ">
+      and z.zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and z.sbrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+  <select id="selectReportByBqdm" resultMap="BaseResultMap">
+    select * from xmjbxx_zb z
+    INNER JOIN xm_gl_bqly b
+    where z.xmjbxx_id = b.xmjbxx_id
+    and b.bqly_dm = #{bqdm} and z.qybj = 1 and b.qybj = 1
+    <if test="status != null ">
+      and z.xmzt_dm = #{status}
+    </if>
+    <if test="deptDm != null ">
+      and z.zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and z.sbrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+  <select id="countSignByDeptDm" resultType="java.lang.Integer">
+    select count(1) from xmjbxx_zb
+    where xmzt_dm = 7 and qybj = 1
+    <if test="industryType != null ">
+      and cylx_bj = #{industryType}
+    </if>
+    <if test="deptDm != null ">
+      and zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and sbrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+  <select id="countSignByXmBq" resultType="java.lang.Integer">
+    select count(1) from xmjbxx_zb z
+    INNER JOIN xm_gl_bqly b
+    where z.xmjbxx_id = b.xmjbxx_id and z.xmzt_dm = 7
+    and b.bqly_dm = #{bqdm} and z.qybj = 1 and b.qybj = 1
+    <if test="deptDm != null ">
+      and z.zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and z.sbrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+  <select id="countInvestData" resultType="java.lang.Integer">
+    select count(1) from xmjbxx_zb
+    where xmzt_dm = 7 and qybj = 1
+    and tzgm_dm = #{investScal}
+    <if test="deptDm != null ">
+      and zsz_dept_dm = #{deptDm}
+    </if>
+    <if test="startTime !=null and endTime !=null ">
+      and xgrq BETWEEN #{startTime} AND #{endTime}
+    </if>
+  </select>
+  <select id="selectBySql" resultType="java.lang.Integer">
+    ${sql};
+  </select>
+  <select id="getProjectDataByParam" resultType="com.quantchi.tianji.service.search.model.XmjbxxZb">
+    SELECT *
+    FROM xmjbxx_zb
+    WHERE qybj = 1
+    <if test="statusList !=null and statusList.size &gt; 0">
+      and xmzt_dm in
+      <foreach close=")" collection="statusList" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="departmentList !=null and departmentList.size &gt; 0">
+      and zsz_dept_dm in
+      <foreach close=")" collection="departmentList" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="projectName != null">
+      and xmmc LIKE CONCAT('%', #{projectName}, '%')
+    </if>
+    <if test="reportStartTime !=null and reportEndTime !=null ">
+      and xgrq BETWEEN #{reportStartTime} AND #{reportEndTime}
+    </if>
+    order by xgrq desc Limit #{page}, #{pageSize}
+  </select>
+  <select id="countProjectDataByParam" resultType="java.lang.Integer">
+    SELECT count(1)
+    FROM xmjbxx_zb
+    WHERE qybj = 1
+    <if test="statusList !=null and statusList.size &gt; 0">
+      and xmzt_dm in
+      <foreach close=")" collection="statusList" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="departmentList !=null and departmentList.size &gt; 0">
+      and zsz_dept_dm in
+      <foreach close=")" collection="departmentList" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="projectName != null">
+      and xmmc LIKE CONCAT('%', #{projectName}, '%')
+    </if>
+    <if test="reportStartTime !=null and reportEndTime !=null ">
+      and xgrq BETWEEN #{reportStartTime} AND #{reportEndTime}
+    </if>
+  </select>
+  <select id="countMemberDataByUserDm" resultType="java.lang.Integer">
+    select count(1) from xmjbxx_zb
+    where qybj = 1
+    <if test="projectIds !=null and projectIds.size &gt; 0">
+      and xmjbxx_id in
+      <foreach close=")" collection="projectIds" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="industryType != null ">
+        and cylx_bj = #{industryType}
+    </if>
+  </select>
+  <select id="countMemberDataByXmBq" resultType="java.lang.Integer">
+    select COUNT(1) from xmjbxx_zb z
+    INNER JOIN xm_gl_bqly b
+    where z.xmjbxx_id = b.xmjbxx_id
+    and b.bqly_dm = #{bqdm} and z.qybj = 1 and b.qybj = 1
+    <if test="projectIds !=null and projectIds.size &gt; 0">
+      and z.xmjbxx_id in
+      <foreach close=")" collection="projectIds" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+  <select id="getAllDataByDeptDm" resultType="java.lang.String">
+    select xmjbxx_id from xmjbxx_zb where zsz_dept_dm = #{deptId} and qybj = 1
+  </select>
+  <update id="deleteByProjectId">
+    update xmjbxx_zb set qybj = 0 where xmjbxx_id = #{projectId}
+  </update>
+  <select id="queryReportDataAllDownExcel" resultType="java.lang.String">
+    SELECT xmjbxx_id
+    FROM xmjbxx_zb x
+    WHERE qybj = 1
+    <if test="statusList !=null and statusList.size &gt; 0">
+      and xmzt_dm in
+      <foreach close=")" collection="statusList" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="investUnits !=null and investUnits.size &gt; 0">
+      and tzgm_dm in
+      <foreach close=")" collection="investUnits" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="projectLabels !=null and projectLabels.size &gt; 0">
+      and xmjbxx_id in(select b.xmjbxx_id from xm_gl_bqly b
+      INNER JOIN dm_cs_bqly d where b.bqly_dm = d.bqly_dm and b.qybj = 1 and d.bqlybj = 1 and b.bqly_dm in
+      <foreach close=")" collection="projectLabels" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+      )
+    </if>
+    <if test="fields !=null and fields.size &gt; 0">
+      and xmjbxx_id in(select b.xmjbxx_id from xm_gl_bqly b
+      INNER JOIN dm_cs_bqly d where b.bqly_dm = d.bqly_dm and b.qybj = 1 and d.bqlybj = 2 and b.bqly_dm in
+      <foreach close=")" collection="fields" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+      )
+    </if>
+    <if test="departmentList !=null and departmentList.size &gt; 0">
+      and zsz_dept_dm in
+      <foreach close=")" collection="departmentList" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    <if test="projectName != null">
+      and xmmc LIKE CONCAT('%', #{projectName}, '%')
+    </if>
+    <if test="reportStartTime !=null and reportEndTime !=null ">
+      and sbrq BETWEEN #{reportStartTime} AND #{reportEndTime}
+    </if>
+    order by sbrq desc
+  </select>
+</mapper>
