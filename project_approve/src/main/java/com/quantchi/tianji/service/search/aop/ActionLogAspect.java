@@ -1,22 +1,11 @@
 package com.quantchi.tianji.service.search.aop;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quantchi.core.message.ResultInfo;
-import com.quantchi.tianji.service.search.dao.LoginLogMapper;
-import com.quantchi.tianji.service.search.dao.UseAccessRecordMapper;
-import com.quantchi.tianji.service.search.model.LoginLog;
-import com.quantchi.tianji.service.search.model.UseAccessRecord;
-import com.quantchi.tianji.service.search.utils.JsonUtil;
 import com.quantchi.tianji.service.search.utils.JwtUtils;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,7 +28,7 @@ import java.util.Map;
 @Aspect
 public class ActionLogAspect {
 
-    @Autowired
+/*    @Autowired
     private LoginLogMapper loginLogMapper;
 
     @Autowired
@@ -117,6 +106,6 @@ public class ActionLogAspect {
             useAccessRecordMapper.insertSelective(useAccessRecord);
         }
 
-    }
+    }*/
 
 }

@@ -40,18 +40,4 @@ public class Application {
 
         new SpringApplicationBuilder(Application.class).web(true).run(args);
     }
-
-    public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.quantchi.tianji";
-
-    @Bean
-    public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2).pathMapping("")
-            .apiInfo(apiInfo()).select().apis(RequestHandlerSelectors
-            .basePackage(SWAGGER_SCAN_BASE_PACKAGE)).paths(PathSelectors.any()).build();
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("量知产业知识中心")
-                .description("首页,搜索,关键字模块Api文档").termsOfServiceUrl("http://mydomain/").contact("黄伟").version("1.0").build();
-    }
 }

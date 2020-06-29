@@ -33,7 +33,7 @@ public class LoginController {
      */
     @LoginLog(name = "记录用户登录日志")
     @GetMapping()
-    public ResultInfo login( String mobile, String passWord) {
+    public ResultInfo login(String mobile, String passWord) {
 
         Map<String,Object> loginResult = loginService.checkMobile(mobile, passWord);
 

@@ -1,12 +1,11 @@
 package com.quantchi.tianji.service.search.interfaces.http;
 
 import com.quantchi.core.message.ResultInfo;
-import com.quantchi.tianji.service.search.service.CompanyFollowerService;
-import com.quantchi.tianji.service.search.service.StatusLogService;
-import com.quantchi.tianji.service.search.service.UserService;
+import com.quantchi.tianji.service.search.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * @program: DeQing-InvestmentEnterprise
@@ -20,10 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserService userService;
-
-
 
     /**
      * 项目查询钉钉页面（权限接口）

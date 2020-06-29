@@ -1,78 +1,20 @@
 package com.quantchi.tianji.service.search.service.project;
 
 import com.quantchi.core.message.ResultInfo;
-import com.quantchi.tianji.service.search.model.DownLoadParam;
+import com.quantchi.tianji.service.search.model.ProjectSearchParams;
 import com.quantchi.tianji.service.search.model.SubmitLeaderParam;
-import com.quantchi.tianji.service.search.model.param.ProjectSearchParams;
-import com.quantchi.tianji.service.search.model.vo.PreferenceParam;
-import com.quantchi.tianji.service.search.model.vo.ProjectQueryParam;
-import com.quantchi.tianji.service.search.model.vo.project.ProjectReportVO;
-import com.quantchi.tianji.service.search.model.vo.sign.JudgeParam;
-import com.quantchi.tianji.service.search.model.vo.sign.ProjectRecordParam;
-import io.swagger.models.auth.In;
+import com.quantchi.tianji.service.search.model.vo.ProjectReportVO;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author leiel
  * @Description
- * @Date 2019/12/16 2:31 PM
+ * @Date 2020/6/29 10:26 AM
  */
 
 public interface ProjectManageService {
-
-    /**
-     * 设置偏好数据
-     * @param preferenceParam
-     * @return
-     */
-    ResultInfo preferenceSet(PreferenceParam preferenceParam);
-
-    /**
-     * 查询偏好数据
-     * @param staffId
-     * @return
-     */
-    ResultInfo queryPreference(String staffId);
-
-    /**
-     * 获取所有数据
-     * @param projectQueryParam
-     * @return
-     */
-    ResultInfo getProjectAll(ProjectQueryParam projectQueryParam);
-
-    /**
-     * 更新签到数据
-     * @param staffId
-     * @return
-     */
-    ResultInfo updateSignData(String staffId, Long visitId);
-
-    /**
-     * 查看项目记录数据
-     * @param visitId
-     * @return
-     */
-    ResultInfo queryProjectRecord(Long visitId);
-
-    /**
-     * 保存项目记录数据
-     * @param projectRecordParam
-     * @return
-     */
-    ResultInfo saveProjectRecord(ProjectRecordParam projectRecordParam);
-
-    /**
-     * 研判
-     * @param judgeParam
-     * @return
-     */
-    ResultInfo judgeProject(JudgeParam judgeParam);
-
-    ResultInfo searchProject(String staffId, String visitName, Integer type, Integer page, Integer pageSize);
 
     /**
      * 项目搜索（web端）
@@ -101,7 +43,7 @@ public interface ProjectManageService {
      * @param
      * @return
      */
-    ResultInfo submitLeader( SubmitLeaderParam submitLeaderParam);
+    ResultInfo submitLeader(SubmitLeaderParam submitLeaderParam);
 
 
     ResultInfo submitLeaderAll(SubmitLeaderParam submitLeaderParam);
@@ -187,14 +129,14 @@ public interface ProjectManageService {
     ResultInfo reportOne(ProjectReportVO projectReportVO);
 
     /**
-     *
-     * @param projectSearchParams
-     * @return
+     * 隐藏项目
      */
-    ResultInfo statisticData(ProjectSearchParams projectSearchParams);
-
     ResultInfo hide(String projectId, int hideFlag);
 
+    /**
+     * 获取部门数据
+     * @return
+     */
     ResultInfo deptList();
 
     /**
@@ -210,6 +152,9 @@ public interface ProjectManageService {
      */
     ResultInfo reportSearch(ProjectSearchParams projectSearchParams);
 
+    /**
+     * 记录数据查询
+     */
     ResultInfo recordingSearch(Integer userId);
 
     /**
@@ -218,4 +163,5 @@ public interface ProjectManageService {
      * @return
      */
     ResultInfo delete(String projectId);
+
 }

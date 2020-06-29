@@ -1,11 +1,8 @@
 package com.quantchi.tianji.service.search.helper;
 
 import com.alibaba.fastjson.JSON;
-import com.quantchi.tianji.service.search.model.WorkTask;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.action.get.MultiGetItemResponse;
-import org.elasticsearch.action.get.MultiGetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -15,12 +12,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
- * @program: DeQing-InvestmentEnterprise
+ *
  * @description:
- * @author: mf
+ * @author: leiel
  * @create: 2019-09-10 13:59
  **/
 @Component
@@ -48,20 +44,6 @@ public class SearchUtil {
 
     @Autowired
     private RestTemplate restTemplate;
-
-    /**
-     * 从es中获取公司详情
-     * @param workTask
-     * @param index
-     * @param type
-     * @return
-     */
-    public Map<String, Object> getCompanyDetail(WorkTask workTask, String index, String type) {
-        GetResponse response = elasticsearchHelper.get(index, type, workTask.getCompanyId());
-        Map<String, Object> responseMap = response.getSourceAsMap();
-        return responseMap;
-    }
-
 
     /**
      * 整理火石接口返回数据格式

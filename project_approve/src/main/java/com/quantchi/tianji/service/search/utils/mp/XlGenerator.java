@@ -15,13 +15,13 @@ public class XlGenerator {
         //作者
         String author = "leiel";
         //文件目录
-        final String dir = "authority";
+        final String dir = "user";
         //本地项目路径 /Users/leiel/IdeaProjects/AttractInvestmentEnterpriseSecond/DeQing-InvestmentApp
-        String project_url = "/Users/leiel/IdeaProjects/AttractInvestmentEnterpriseSecond/DeQing-InvestmentApp";
+        String project_url = "/Users/leiel/IdeaProjects/project_approve";
         //前缀
         String tablePrefix = "";
         //表名
-        String[] table_names = new String[]{"deqing_authority"};
+        String[] table_names = new String[]{"use_access_record"};
         boolean isNeedController = false;
 
         for(String table_name :table_names){

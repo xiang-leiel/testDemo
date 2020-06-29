@@ -2,23 +2,18 @@ package com.quantchi.tianji.service.search.interfaces.http;
 
 import com.quantchi.core.message.ResultInfo;
 import com.quantchi.tianji.service.search.aop.annotation.AccessLog;
-import com.quantchi.tianji.service.search.dao.DmWfNodezbMapper;
 import com.quantchi.tianji.service.search.enums.ErrCode;
-import com.quantchi.tianji.service.search.model.DmWfNodezb;
+import com.quantchi.tianji.service.search.model.ProjectSearchParams;
 import com.quantchi.tianji.service.search.model.ReportListParam;
 import com.quantchi.tianji.service.search.model.SubmitLeaderParam;
-import com.quantchi.tianji.service.search.model.param.ProjectSearchParams;
-import com.quantchi.tianji.service.search.model.vo.project.ProjectReportVO;
-import com.quantchi.tianji.service.search.service.department.DepartmentService;
+import com.quantchi.tianji.service.search.model.vo.ProjectReportVO;
 import com.quantchi.tianji.service.search.service.project.ProjectManageService;
 import com.quantchi.tianji.service.search.utils.ResultUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @Description 项目流转controller
@@ -32,9 +27,6 @@ public class ProjectManageController {
 
     @Resource
     private ProjectManageService projectManageService;
-
-    @Resource
-    private DmWfNodezbMapper dmWfNodezbMapper;
 
     /**
      * 项目查询条件显示
@@ -280,13 +272,13 @@ public class ProjectManageController {
     @GetMapping("/deptRelation")
     public ResultInfo departmentRelation(Integer userId, Integer deptId) {
 
-        if(userId != null){
+/*        if(userId != null){
             //如果dm_wf_nodezb有数据，则用这里面的部门
             Integer departmentId = dmWfNodezbMapper.selectDeptDmByUserId(userId);
             if(departmentId != null) {
                 deptId = departmentId;
             }
-        }
+        }*/
 
         ResultInfo resultInfo = projectManageService.departmentRelation(deptId);
 

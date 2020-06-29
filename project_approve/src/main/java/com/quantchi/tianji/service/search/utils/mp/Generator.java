@@ -47,7 +47,7 @@ public class Generator {
                                 .setDriverName("com.mysql.jdbc.Driver")
                                 .setUsername("liangzhi")
                                 .setPassword("liangzhi")
-                                .setUrl("jdbc:mysql://192.168.1.27:3306/deqing_investment_third?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull"))
+                                .setUrl("jdbc:mysql://47.96.126.125:3306/ding_cloud_push_refactor?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull"))
 
                 .setStrategy(
                         // 策略配置
