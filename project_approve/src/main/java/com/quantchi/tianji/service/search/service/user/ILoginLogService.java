@@ -1,7 +1,7 @@
 package com.quantchi.tianji.service.search.service.user;
 
-import com.quantchi.tianji.service.search.entity.user.LoginLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.quantchi.tianji.service.search.entity.user.LoginLog;
 
 /**
  * <p>

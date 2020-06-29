@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.mapper.user.UserInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.entity.user.UserInfo">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="job" property="job" />
+        <result column="mobile" property="mobile" />
+        <result column="dept_id" property="deptId" />
+        <result column="is_valid" property="isValid" />
+        <result column="work_flag" property="workFlag" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="login_pwd" property="loginPwd" />
+        <result column="ding_userid" property="dingUserid" />
+        <result column="wx_openid" property="wxOpenid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, job, mobile, dept_id, is_valid, work_flag, create_time, update_time, login_pwd, ding_userid, wx_openid
+    </sql>
+    <select id="selectBymobile" resultMap="BaseResultMap">
+        select * from user_info where mobile = #{mobile}
+    </select>
+
+</mapper>

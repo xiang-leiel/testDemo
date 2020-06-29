@@ -1,6 +1,6 @@
 package com.quantchi.tianji.service.search;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.*;

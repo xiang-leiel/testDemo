@@ -1,7 +1,5 @@
 package com.quantchi.tianji.service.search.enums;
 
-import io.swagger.models.auth.In;
-
 /**
  * @author leiel
  * @Description

@@ -35,7 +35,7 @@ public class LoginController {
     @GetMapping()
     public ResultInfo login(String mobile, String passWord) {
 
-        Map<String,Object> loginResult = loginService.checkMobile(mobile, passWord);
+         Map<String,Object> loginResult = loginService.checkMobile(mobile, passWord);
 
         if(null == loginResult) {
             return ResultUtils.fail(ErrCode.NOT_EXIST.getCode(),"您输入的手机号或密码错误，请重新输入");

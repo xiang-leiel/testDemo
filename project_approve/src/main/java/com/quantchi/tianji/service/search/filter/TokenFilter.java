@@ -8,8 +8,6 @@ import com.quantchi.tianji.service.search.enums.ErrCode;
 import com.quantchi.tianji.service.search.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.ResultType;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 

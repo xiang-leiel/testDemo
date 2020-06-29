@@ -1,7 +1,7 @@
 package com.quantchi.tianji.service.search.dao.mapper.user;
 
-import com.quantchi.tianji.service.search.entity.user.LoginLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.quantchi.tianji.service.search.entity.user.LoginLog;
 
 /**
  * <p>
