@@ -7,15 +7,15 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 用户表 前端控制器
+ * 项目标签关联表 前端控制器
  * </p>
  *
  * @author leiel
- * @since 2020-06-29
+ * @since 2020-06-30
  */
 @Controller
-@RequestMapping("/userInfo")
-public class UserInfoController {
+@RequestMapping("/projectLabel")
+public class ProjectLabelController {
 
 }
 

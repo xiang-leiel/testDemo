@@ -1,4 +1,4 @@
-package com.quantchi.tianji.service.search.filter;
+package com.quantchi.tianji.service.search.interceptor;
 
 
 import com.alibaba.fastjson.JSON;

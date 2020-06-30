@@ -24,8 +24,6 @@ public class LoginService {
     @Resource
     private UserInfoMapper userInfoMapper;
 
-    @Resource
-
     public Map<String,Object> checkMobile(String mobile, String passWord) {
 
         Map<String, Object> loginMap = new HashMap<>(10);
@@ -57,7 +55,6 @@ public class LoginService {
         loginMap.put("workFlowDesc", null);
         loginMap.put("departmentId", userInfo.getDeptId());
         loginMap.put("departmentName", null);
-
 
         return loginMap;
 

@@ -1,6 +1,6 @@
 package com.quantchi.tianji.service.search.config;
 
-import com.quantchi.tianji.service.search.filter.TokenFilter;
+import com.quantchi.tianji.service.search.interceptor.TokenFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;

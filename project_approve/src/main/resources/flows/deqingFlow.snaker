@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process name="deqingFlow" displayName="deqingFlow" >
+<start layout="68,209,50,50" name="start" >
+<transition offset="0,-10" to="report" name="start" displayName="开始" />
+</start>
+<task layout="201,208,100,50" name="report" displayName="上报任务" taskType="Major" performType="ANY" postInterceptors="com.quantchi.tianji.service.search.interceptor.ReportAfterInterceptor" >
+<transition offset="0,-10" to="dec" name="report" displayName="上报" />
+</task>
+<task layout="365,88,100,50" name="firstAudit" displayName="初审" taskType="Major" performType="ANY" postInterceptors="com.quantchi.tianji.service.search.interceptor.FirstAuditAfterInterceptor" >
+<transition offset="0,-10" to="firstAuditDec" name="path14" displayName="初审" />
+</task>
+<task layout="570,209,100,50" name="endAudit" displayName="终审" taskType="Major" performType="ANY" postInterceptors="com.quantchi.tianji.service.search.interceptor.EndAuditAfterInterceptor" >
+<transition offset="0,-10" to="end" name="path21" displayName="终审完成" />
+</task>
+<decision layout="368,209,100,50" name="dec" handleClass="com.quantchi.tianji.service.search.interceptor.ReportProjectDecisionHandler" >
+<transition offset="0,-10" to="endAudit" name="endAudit" displayName="去复审" />
+<transition offset="0,-10" to="firstAudit" name="firstAudit" displayName="去初审" />
+</decision>
+<end layout="833,209,50,50" name="end" >
+</end>
+<decision layout="565,86,100,50" name="firstAuditDec" handleClass="com.quantchi.tianji.service.search.interceptor.FirstAuditDescisionHandler" >
+<transition offset="0,-10" to="endAudit" name="path15" displayName="初审通过" />
+<transition offset="0,-10" to="end" name="path17" displayName="初审不通过" />
+</decision>
+</process>

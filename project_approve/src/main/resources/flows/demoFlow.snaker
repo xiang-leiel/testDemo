@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process name="demoFlow" displayName="demoFlow" >
+<start layout="68,209,50,50" name="start" >
+<transition offset="0,-10" to="report" name="start" displayName="开始" />
+</start>
+<task assignee="report.operator" layout="201,208,100,50" name="report" displayName="上报任务" postInterceptors="com.quantchi.snakerflow.interceptor.ReportAfterInterceptor" >
+<transition offset="0,-10" to="dec" name="report" displayName="上报" />
+</task>
+<task assignee="firstAudit.operator" layout="530,85,100,50" name="firstAudit" displayName="初审" postInterceptors="com.quantchi.snakerflow.interceptor.FirstAuditAfterInterceptor" >
+<transition offset="0,-10" to="endAudit" name="firstToEndAudit" displayName="去复审" />
+</task>
+<task assignee="endAudit.operator" layout="533,209,100,50" name="endAudit" displayName="终审" postInterceptors="com.quantchi.snakerflow.interceptor.EndAuditAfterInterceptor" >
+<transition offset="0,-10" to="end" name="end" displayName="结束" />
+</task>
+<decision layout="368,209,100,50" name="dec" handleClass="com.quantchi.snakerflow.interceptor.ReportProjectDecisionHandler" >
+<transition offset="0,-10" to="endAudit" name="endAudit" displayName="去复审" />
+<transition offset="0,-10" to="firstAudit" name="firstAudit" displayName="去初审" />
+</decision>
+<end layout="738,208,50,50" name="end" >
+</end>
+</process>

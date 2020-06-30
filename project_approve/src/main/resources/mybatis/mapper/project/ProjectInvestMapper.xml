@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.mapper.project.ProjectInvestMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.entity.project.ProjectInvest">
+        <id column="id" property="id" />
+        <result column="project_id" property="projectId" />
+        <result column="name" property="name" />
+        <result column="introduction" property="introduction" />
+        <result column="relate_user_name" property="relateUserName" />
+        <result column="relate_user_mobile" property="relateUserMobile" />
+        <result column="relate_user_job" property="relateUserJob" />
+        <result column="country" property="country" />
+        <result column="region" property="region" />
+        <result column="is_valid" property="isValid" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="operator_id" property="operatorId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, project_id, name, introduction, relate_user_name, relate_user_mobile, relate_user_job, country, region, is_valid, create_time, update_time, operator_id
+    </sql>
+
+</mapper>

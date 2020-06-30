@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.mapper.project.ProjectLabelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.entity.project.ProjectLabel">
+        <id column="id" property="id" />
+        <result column="project_id" property="projectId" />
+        <result column="label_id" property="labelId" />
+        <result column="label_count" property="labelCount" />
+        <result column="is_valid" property="isValid" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="operator_id" property="operatorId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, project_id, label_id, label_count, is_valid, create_time, update_time, operator_id
+    </sql>
+
+    <update id="updateInvalidByXmId">
+    update project_label x, label d
+    set x.is_valid = 0
+    where x.id = d.id and x.is_valid = 1
+    and x.project_id = #{xmId} and d.type = #{type}
+  </update>
+
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.mapper.project.ProjectInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.entity.project.ProjectInfo">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="status" property="status" />
+        <result column="industry_type" property="industryType" />
+        <result column="country" property="country" />
+        <result column="region" property="region" />
+        <result column="content" property="content" />
+        <result column="need_land_area" property="needLandArea" />
+        <result column="land_type" property="landType" />
+        <result column="land_unit" property="landUnit" />
+        <result column="office_area" property="officeArea" />
+        <result column="invest_total" property="investTotal" />
+        <result column="invest_fixed" property="investFixed" />
+        <result column="currency_unit" property="currencyUnit" />
+        <result column="invest_scale" property="investScale" />
+        <result column="land_dept_id" property="landDeptId" />
+        <result column="relate_dept_dm" property="relateDeptDm" />
+        <result column="other_requires" property="otherRequires" />
+        <result column="invest_type" property="investType" />
+        <result column="invest_date" property="investDate" />
+        <result column="report_user_id" property="reportUserId" />
+        <result column="master_user_dm" property="masterUserDm" />
+        <result column="mark" property="mark" />
+        <result column="hide_flag" property="hideFlag" />
+        <result column="is_valid" property="isValid" />
+        <result column="report_time" property="reportTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="operator_id" property="operatorId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, status, industry_type, country, region, content, need_land_area, land_type, land_unit, office_area, invest_total, invest_fixed, currency_unit, invest_scale, land_dept_id, relate_dept_dm, other_requires, invest_type, invest_date, report_user_id, master_user_dm, mark, hide_flag, is_valid, report_time, create_time, update_time, operator_id
+    </sql>
+
+</mapper>
