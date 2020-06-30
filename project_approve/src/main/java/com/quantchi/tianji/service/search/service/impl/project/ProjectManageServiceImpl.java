@@ -1,9 +1,9 @@
 package com.quantchi.tianji.service.search.service.impl.project;
 
 import com.quantchi.core.message.ResultInfo;
-import com.quantchi.tianji.service.search.dao.mapper.project.ProjectInfoMapper;
-import com.quantchi.tianji.service.search.dao.mapper.project.ProjectInvestMapper;
-import com.quantchi.tianji.service.search.dao.mapper.project.ProjectLabelMapper;
+import com.quantchi.tianji.service.search.dao.project.ProjectInfoMapper;
+import com.quantchi.tianji.service.search.dao.project.ProjectInvestMapper;
+import com.quantchi.tianji.service.search.dao.project.ProjectLabelMapper;
 import com.quantchi.tianji.service.search.entity.project.ProjectInfo;
 import com.quantchi.tianji.service.search.entity.project.ProjectInvest;
 import com.quantchi.tianji.service.search.entity.project.ProjectLabel;

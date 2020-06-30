@@ -97,7 +97,7 @@ public class Generator {
                                 .setParent("src.main")
                                 // 这里是控制器包名，默认 web
                                 .setEntity("java.com.quantchi.tianji.service.search.entity." + dir)
-                                .setMapper("java.com.quantchi.tianji.service.search.dao.mapper." + dir)
+                                .setMapper("java.com.quantchi.tianji.service.search.dao." + dir)
                                 .setService("java.com.quantchi.tianji.service.search.service." + dir)
                                 .setServiceImpl("java.com.quantchi.tianji.service.search.service.impl." + dir)
                                 .setXml("resources.mybatis.mapper." + dir)

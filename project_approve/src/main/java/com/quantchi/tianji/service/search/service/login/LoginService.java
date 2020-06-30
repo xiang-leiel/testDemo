@@ -1,15 +1,13 @@
 package com.quantchi.tianji.service.search.service.login;
 
-import com.quantchi.tianji.service.search.dao.mapper.user.UserInfoMapper;
+import com.quantchi.tianji.service.search.dao.user.UserInfoMapper;
 import com.quantchi.tianji.service.search.entity.user.UserInfo;
 import com.quantchi.tianji.service.search.utils.MD5Utils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

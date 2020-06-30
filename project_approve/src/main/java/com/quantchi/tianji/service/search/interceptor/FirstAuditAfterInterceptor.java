@@ -1,6 +1,6 @@
 package com.quantchi.tianji.service.search.interceptor;
 
-import com.quantchi.tianji.service.search.dao.mapper.flow.WfOrderProjectMapper;
+import com.quantchi.tianji.service.search.dao.flow.WfOrderProjectMapper;
 import org.snaker.engine.SnakerInterceptor;
 import org.snaker.engine.core.Execution;
 

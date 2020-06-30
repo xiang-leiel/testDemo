@@ -2,7 +2,7 @@ package com.quantchi.tianji.service.search.service.impl.user;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.quantchi.tianji.service.search.entity.user.LoginLog;
-import com.quantchi.tianji.service.search.dao.mapper.user.LoginLogMapper;
+import com.quantchi.tianji.service.search.dao.user.LoginLogMapper;
 import com.quantchi.tianji.service.search.service.user.ILoginLogService;
 import org.springframework.stereotype.Service;
 

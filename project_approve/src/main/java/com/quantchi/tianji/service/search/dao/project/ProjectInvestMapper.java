@@ -1,4 +1,4 @@
-package com.quantchi.tianji.service.search.dao.mapper.project;
+package com.quantchi.tianji.service.search.dao.project;
 
 import com.quantchi.tianji.service.search.entity.project.ProjectInvest;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

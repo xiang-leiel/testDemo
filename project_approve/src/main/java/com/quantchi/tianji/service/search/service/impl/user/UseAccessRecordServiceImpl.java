@@ -1,7 +1,7 @@
 package com.quantchi.tianji.service.search.service.impl.user;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.quantchi.tianji.service.search.dao.mapper.user.UseAccessRecordMapper;
+import com.quantchi.tianji.service.search.dao.user.UseAccessRecordMapper;
 import com.quantchi.tianji.service.search.entity.user.UseAccessRecord;
 import com.quantchi.tianji.service.search.service.user.IUseAccessRecordService;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.quantchi.tianji.service.search.dao.mapper.user;
+package com.quantchi.tianji.service.search.dao.user;
 
 import com.quantchi.tianji.service.search.entity.user.UserInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

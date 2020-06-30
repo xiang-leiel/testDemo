@@ -1,7 +1,7 @@
 package com.quantchi.tianji.service.search.service.impl.project;
 
 import com.quantchi.tianji.service.search.entity.project.ProjectLabel;
-import com.quantchi.tianji.service.search.dao.mapper.project.ProjectLabelMapper;
+import com.quantchi.tianji.service.search.dao.project.ProjectLabelMapper;
 import com.quantchi.tianji.service.search.service.project.IProjectLabelService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

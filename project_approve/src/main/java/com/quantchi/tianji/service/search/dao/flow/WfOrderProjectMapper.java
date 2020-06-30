@@ -1,4 +1,4 @@
-package com.quantchi.tianji.service.search.dao.mapper.flow;
+package com.quantchi.tianji.service.search.dao.flow;
 
 import com.quantchi.tianji.service.search.entity.flow.WfOrderProject;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
