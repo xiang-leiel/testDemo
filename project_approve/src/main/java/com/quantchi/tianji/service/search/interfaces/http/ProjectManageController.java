@@ -179,7 +179,6 @@ public class ProjectManageController {
 
     /**
      * 逻辑删除按钮
-     * hideFlag 0未隐藏 1隐藏
      * @return
      */
     @GetMapping("/delete")
@@ -311,7 +310,7 @@ public class ProjectManageController {
     }
 
     /**
-     * 获取枚举 1项目标签、2投资规模、3行业领域 4落地平台 5货币单位 6人才项目 7拒绝用语 8国家/省级行政区
+     * 获取枚举 1项目标签、2行业领域 3落地平台 4人才项目  5国家/省级行政区
      * @return
      */
     @GetMapping("/dataEnums")

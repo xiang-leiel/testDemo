@@ -1,7 +1,9 @@
 package com.quantchi.tianji.service.search.dao.project;
 
-import com.quantchi.tianji.service.search.entity.project.Label;
+import com.quantchi.tianji.service.search.entity.project.CodeLabel;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -9,8 +11,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author leiel
- * @since 2020-06-30
+ * @since 2020-07-01
  */
-public interface LabelMapper extends BaseMapper<Label> {
+public interface CodeLabelMapper extends BaseMapper<CodeLabel> {
 
+    List<CodeLabel> selectBqlyAll();
 }

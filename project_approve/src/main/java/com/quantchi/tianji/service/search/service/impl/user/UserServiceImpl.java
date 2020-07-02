@@ -20,4 +20,10 @@ public class UserServiceImpl implements UserService {
     public ResultInfo getProjectMember(String visitId) {
         return null;
     }
+
+    @Override
+    public ResultInfo getUserNode(Integer userId) {
+        return null;
+    }
+
 }

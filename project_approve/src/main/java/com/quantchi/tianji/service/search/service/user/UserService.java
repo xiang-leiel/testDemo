@@ -13,4 +13,6 @@ public interface UserService {
 
     ResultInfo getProjectMember(String visitId);
 
+    ResultInfo getUserNode(Integer userId);
+
 }

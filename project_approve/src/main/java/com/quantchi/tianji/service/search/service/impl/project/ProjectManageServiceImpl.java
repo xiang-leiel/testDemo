@@ -1,33 +1,42 @@
 package com.quantchi.tianji.service.search.service.impl.project;
 
 import com.quantchi.core.message.ResultInfo;
+import com.quantchi.tianji.service.search.dao.CodeCountryMapper;
+import com.quantchi.tianji.service.search.dao.CodeRegionMapper;
+import com.quantchi.tianji.service.search.dao.project.CodeLabelMapper;
 import com.quantchi.tianji.service.search.dao.project.ProjectInfoMapper;
 import com.quantchi.tianji.service.search.dao.project.ProjectInvestMapper;
 import com.quantchi.tianji.service.search.dao.project.ProjectLabelMapper;
+import com.quantchi.tianji.service.search.dao.CodeDeptmentMapper;
+import com.quantchi.tianji.service.search.entity.CodeCountry;
+import com.quantchi.tianji.service.search.entity.CodeRegion;
+import com.quantchi.tianji.service.search.entity.project.CodeLabel;
 import com.quantchi.tianji.service.search.entity.project.ProjectInfo;
 import com.quantchi.tianji.service.search.entity.project.ProjectInvest;
 import com.quantchi.tianji.service.search.entity.project.ProjectLabel;
+import com.quantchi.tianji.service.search.entity.CodeDeptment;
 import com.quantchi.tianji.service.search.enums.ErrCode;
-import com.quantchi.tianji.service.search.model.InvestParams;
-import com.quantchi.tianji.service.search.model.ProjectSearchParams;
-import com.quantchi.tianji.service.search.model.SubmitLeaderParam;
-import com.quantchi.tianji.service.search.model.TalentParams;
+import com.quantchi.tianji.service.search.enums.InvestmentScaleEnum;
+import com.quantchi.tianji.service.search.model.*;
 import com.quantchi.tianji.service.search.model.vo.ProjectReportVO;
+import com.quantchi.tianji.service.search.model.vo.ProjectVO;
+import com.quantchi.tianji.service.search.model.vo.ReportDataCountVO;
 import com.quantchi.tianji.service.search.service.project.ProjectManageService;
+import com.quantchi.tianji.service.search.service.project.ProjectReportManageService;
 import com.quantchi.tianji.service.search.service.project.ReportService;
+import com.quantchi.tianji.service.search.utils.DateUtils;
 import com.quantchi.tianji.service.search.utils.ResultUtils;
 import com.quantchi.tianji.service.search.utils.UUIDUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Description 
@@ -50,9 +59,28 @@ public class ProjectManageServiceImpl implements ProjectManageService {
     @Resource
     private ProjectLabelMapper projectLabelMapper;
 
+    @Resource
+    private ProjectReportManageService projectReportManageService;
+
+    @Resource
+    private CodeLabelMapper codeLabelMapper;
+
+    @Resource
+    private CodeDeptmentMapper codeDeptmentMapper;
+
+    @Resource
+    private CodeCountryMapper codeCountryMapper;
+
+    @Resource
+    private CodeRegionMapper codeRegionMapper;
+
     @Override
     public ResultInfo projectSearch(ProjectSearchParams projectSearchParams) {
-        return null;
+        ProjectVO projectVO = new ProjectVO();
+
+        projectVO = projectReportManageService.searchProject(projectSearchParams);
+
+        return ResultUtils.success(projectVO);
     }
 
     @Override
@@ -77,7 +105,93 @@ public class ProjectManageServiceImpl implements ProjectManageService {
 
     @Override
     public ResultInfo searchOne(String projectId, Integer userId) {
-        return null;
+        ProjectReportVO projectReportVO = new ProjectReportVO();
+
+        //查询项目基本信息表
+        ProjectInfo projectInfo = projectInfoMapper.selectById(projectId);
+
+        List<ProjectInvest> xmGlTzfs = projectInvestMapper.selectByProjectId(projectId);
+
+        List<InvestParams> investParamsList = new ArrayList<>();
+        for(ProjectInvest projectInvest : xmGlTzfs) {
+            //企业联系人
+            List<String> investors = new ArrayList<>();
+            InvestParams investParams = new InvestParams();
+
+            String[] linkName = null;
+            String[] linkJob = null;
+            String[] linkMobile = null;
+            if(StringUtils.isNotBlank(projectInvest.getRelateUserName())) {
+                linkName = projectInvest.getRelateUserName().split("\\|");
+            }
+            if(StringUtils.isNotBlank(projectInvest.getRelateUserJob())) {
+                linkJob = projectInvest.getRelateUserJob().split("\\|");
+            }
+            if(StringUtils.isNotBlank(projectInvest.getRelateUserMobile())) {
+                linkMobile = projectInvest.getRelateUserMobile().split("\\|");
+            }
+
+            if(linkName != null && linkJob != null && linkMobile != null) {
+                for(int i = 0; i < linkName.length; i++) {
+                    String investor =  linkName[i]+"_"+linkJob[i]+"_"+linkMobile[i];
+                    investors.add(investor);
+                }
+            }
+            investParams.setInvestId(projectInvest.getId());
+            investParams.setCountry(projectInvest.getCountry());
+            investParams.setRegion(projectInvest.getRegion());
+            investParams.setInvestName(projectInvest.getName());
+            investParams.setInvestInfo(projectInvest.getIntroduction());
+            investParams.setInvestor(investors);
+            investParamsList.add(investParams);
+        }
+        projectReportVO.setInvestParamsList(investParamsList);
+
+        //查询项目标签
+        List<Integer> labels = projectLabelMapper.selectListByXmIdAndType(projectId, 1);
+
+        //投资领域
+        List<Integer> fields = projectLabelMapper.selectListByXmIdAndType(projectId, 2);
+
+        //高层次人才
+        List<Integer> talents = projectLabelMapper.selectListByXmIdAndType(projectId, 3);
+
+        if(talents.contains(1003000)) {
+            labels.add(1003000);
+            Iterator<Integer> it = talents.iterator();
+            while(it.hasNext()) {
+                Integer value = it.next();
+                if(value == 1003000) {
+                    it.remove();
+                }
+            }
+        }
+
+        //人才引进
+        List<ProjectLabel> talentImport = projectLabelMapper.queryListByXmIdAndType(projectId, 5);
+        List<TalentParams> talentParams = new ArrayList<>();
+        for(ProjectLabel projectLabel : talentImport) {
+            TalentParams talentParams1 = new TalentParams();
+            talentParams1.setTalentId(projectLabel.getLabelId());
+            talentParams1.setTalentCounts(projectLabel.getLabelCount());
+            talentParams.add(talentParams1);
+            if(projectLabel.getLabelId() == 1005000) {
+                labels.add(1005000);
+            }
+        }
+
+        projectReportManageService.copyProperties(null, projectInfo, projectReportVO);
+
+        projectReportVO.setProjectLabels(labels);
+        projectReportVO.setFields(fields);
+        projectReportVO.setTalentsLabels(talents);
+        projectReportVO.setInvestmentUnit(projectInfo.getInvestScale());
+        projectReportVO.setTalentImportLabels(talentParams);
+
+        //是否显示终止标记
+        projectReportVO.setOverFlag(1);
+
+        return ResultUtils.success(projectReportVO);
     }
 
     @Override
@@ -102,7 +216,83 @@ public class ProjectManageServiceImpl implements ProjectManageService {
 
     @Override
     public ResultInfo dataEnumsByType(int type) {
-        return null;
+        Map<String, Integer> map = new LinkedHashMap<>();
+
+        // 1项目标签、2投资规模、3投资领域 4落地平台
+        switch(type){
+            case 1:
+                //项目标签
+                List<CodeLabel> labelList = codeLabelMapper.selectBqlyAll();
+                for(CodeLabel codeLabel : labelList) {
+                    if(codeLabel.getType() == 1 && codeLabel.getPid() == 1001000){
+                        map.put(codeLabel.getName(), codeLabel.getId());
+                    }
+                    if(codeLabel.getId() == 1003000){
+                        map.put(codeLabel.getName(), codeLabel.getId());
+                    }
+                    if(codeLabel.getId() == 1005000){
+                        map.put(codeLabel.getName(), codeLabel.getId());
+                    }
+                }
+                break;
+            case 2:
+                //行业领域
+                List<CodeLabel> dmCsBqlies2 = codeLabelMapper.selectBqlyAll();
+                for(CodeLabel codeLabel : dmCsBqlies2) {
+                    if(codeLabel.getType() == 2  && codeLabel.getLevel() == 2){
+                        map.put(codeLabel.getName(), codeLabel.getId());
+                    }
+                }
+                break;
+            case 3:
+                //落地平台
+                List<CodeDeptment> deptList = codeDeptmentMapper.selectDeptByType(4);
+                for(CodeDeptment CodeDeptment : deptList) {
+                    map.put(CodeDeptment.getName(), CodeDeptment.getId());
+                }
+                break;
+            case 4:
+                //人才引进
+                List<CodeLabel> dmCsBqlies3 = codeLabelMapper.selectBqlyAll();
+                for(CodeLabel codeLabel : dmCsBqlies3) {
+                    if(codeLabel.getType() == 5 && codeLabel.getPid() == 1005000){
+                        map.put(codeLabel.getName(), codeLabel.getId());
+                    }
+                }
+                break;
+            case 5:
+                //省级行政区
+                List<CountryCode> countryCodeList = new ArrayList<>();
+                List<CodeCountry> countryList = codeCountryMapper.getNation();
+                for(CodeCountry codeCountry : countryList) {
+                    CountryCode countryCode = new CountryCode();
+                    countryCode.setName(codeCountry.getName());
+                    countryCode.setCode(codeCountry.getId());
+                    List<CodeRegion> regionList = codeRegionMapper.selectProvinceIds(1, countryCode.getCode());
+                    List<RegionCode> provinceCodes = new ArrayList<>();
+                    for(CodeRegion codeRegion : regionList) {
+                        RegionCode provinceCode = new RegionCode();
+                        provinceCode.setName(codeRegion.getName());
+                        provinceCode.setCode(codeRegion.getId());
+                        provinceCodes.add(provinceCode);
+                    }
+                    countryCode.setRegionCodeList(provinceCodes);
+                    countryCodeList.add(countryCode);
+                }
+                return ResultUtils.success(countryCodeList);
+            case 6:
+                //高层次人才项目
+                List<CodeLabel> dmCsBqlies4 = codeLabelMapper.selectBqlyAll();
+                for(CodeLabel codeLabel : dmCsBqlies4) {
+                    if(codeLabel.getType() == 3 && codeLabel.getPid() == 1003000){
+                        map.put(codeLabel.getName(), codeLabel.getId());
+                    }
+                }
+                break;
+            default :
+        }
+
+        return ResultUtils.success(map);
     }
 
     @Override
@@ -117,7 +307,23 @@ public class ProjectManageServiceImpl implements ProjectManageService {
 
     @Override
     public ResultInfo countLeaderIndustry(Integer userId, Integer deptId) {
-        return null;
+        ReportDataCountVO reportDataCountVO = new ReportDataCountVO();
+
+        dealBusinessData(reportDataCountVO, null , null);
+
+        //投资规模数据
+        Map<String, Integer> map = new LinkedHashMap<>();
+
+        List<Integer> scaleList = InvestmentScaleEnum.getList();
+
+        for(Integer scale : scaleList) {
+            Integer value = projectInfoMapper.countInvestData(null, scale,null, null);
+
+            map.put(InvestmentScaleEnum.getDescByCode(scale), value);
+        }
+        reportDataCountVO.setInvestData(map);
+
+        return ResultUtils.success(reportDataCountVO);
     }
 
     @Override
@@ -128,7 +334,7 @@ public class ProjectManageServiceImpl implements ProjectManageService {
     @Override
     public ResultInfo reportOne(ProjectReportVO projectReportVO) {
 
-        Integer status = reportService.reportOne(projectReportVO, projectReportVO.getUserId(), true);
+        Integer status = reportService.reportOne(projectReportVO, projectReportVO.getUserId());
 
         if(status == null) {
             return ResultUtils.fail(ErrCode.NODE_NOT_SET);
@@ -141,7 +347,17 @@ public class ProjectManageServiceImpl implements ProjectManageService {
 
     @Override
     public ResultInfo hide(String projectId, int hideFlag) {
-        return null;
+        //判断项目是否已经存在
+        ProjectInfo projectInfo = projectInfoMapper.selectById(projectId);
+        if(projectInfo == null) {
+            return ResultUtils.fail(1001, "该项目不存在");
+        }
+        ProjectInfo projectInfo1 = new ProjectInfo();
+        projectInfo1.setHideFlag(hideFlag);
+        projectInfo1.setId(projectId);
+        projectInfoMapper.updateById(projectInfo1);
+
+        return ResultUtils.success("success");
     }
 
     @Override
@@ -166,7 +382,16 @@ public class ProjectManageServiceImpl implements ProjectManageService {
 
     @Override
     public ResultInfo delete(String projectId) {
-        return null;
+        //主表更新
+        projectInfoMapper.deleteByProjectId(projectId);
+
+        //标签领域更新
+        projectLabelMapper.deleteByProjectId(projectId);
+
+        //投资方更新
+        projectInvestMapper.deleteByProjectId(projectId);
+
+        return ResultUtils.success("success");
     }
 
     public void updateProjectData(ProjectReportVO projectReportVO, Integer status) {
@@ -362,5 +587,38 @@ public class ProjectManageServiceImpl implements ProjectManageService {
         }
         tzyxrq = c1.getTime();
         return tzyxrq;
+    }
+
+
+    private void dealBusinessData(ReportDataCountVO reportDataCountVO, Date startTime, Date endTime) {
+        //总上报数
+        int reportTotal = 0;
+        reportTotal = projectInfoMapper.countSignByDeptDm(null, null,startTime, endTime);
+
+        //一产 二产 三产
+        int oneIndustry = 0;
+        oneIndustry = projectInfoMapper.countSignByDeptDm(null, 1,startTime, endTime);
+
+        int twoIndustry = 0;
+        twoIndustry = projectInfoMapper.countSignByDeptDm(null, 2,startTime, endTime);
+
+        int threeIndustry = 0;
+        threeIndustry = projectInfoMapper.countSignByDeptDm(null, 3,startTime, endTime);
+
+        //人才
+        int talent = 0;
+        talent = projectInfoMapper.countSignByXmBq(null, 1002,startTime,endTime);
+
+        //沪资5亿
+        int shanghaiOverFive = 0;
+        shanghaiOverFive = projectInfoMapper.countSignByXmBq(null, 1003,startTime,endTime);
+
+        reportDataCountVO.setReportTotal(reportTotal);
+        reportDataCountVO.setOneIndustry(oneIndustry);
+        reportDataCountVO.setTwoIndustry(twoIndustry);
+        reportDataCountVO.setThreeIndustry(threeIndustry);
+        reportDataCountVO.setTalent(talent);
+        reportDataCountVO.setShanghaiOverFive(shanghaiOverFive);
+        reportDataCountVO.setReportTime(DateUtils.changeFormatDateToSec(new Date()));
     }
 }

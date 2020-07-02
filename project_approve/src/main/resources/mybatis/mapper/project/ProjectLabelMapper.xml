@@ -20,10 +20,27 @@
     </sql>
 
     <update id="updateInvalidByXmId">
-    update project_label x, label d
-    set x.is_valid = 0
-    where x.id = d.id and x.is_valid = 1
-    and x.project_id = #{xmId} and d.type = #{type}
+        update project_label x, code_label d
+        set x.is_valid = 0
+        where x.id = d.id and x.is_valid = 1
+        and x.project_id = #{projectId} and d.type = #{type}
   </update>
+    <select id="selectListByXmIdAndType" resultType="java.lang.Integer">
+        select x.label_id from project_label x
+        INNER JOIN code_label d
+        where x.label_id = d.id and x.is_valid = 1
+        and x.project_id = #{projectId}
+        and d.type = #{type}
+    </select>
+    <select id="queryListByXmIdAndType" resultMap="BaseResultMap">
+        select * from project_label x
+        INNER JOIN code_label d
+        where x.label_id = d.id and x.is_valid = 1
+        and x.project_id = #{projectId}
+        and d.type = #{type}
+    </select>
+    <update id="deleteByProjectId">
+        update project_label set is_valid = 0 where project_id = #{projectId}
+    </update>
 
 </mapper>

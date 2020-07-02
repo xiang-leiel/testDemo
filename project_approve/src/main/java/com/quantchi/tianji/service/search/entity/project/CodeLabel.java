@@ -13,10 +13,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author leiel
- * @since 2020-06-30
+ * @since 2020-07-01
  */
-@TableName("label")
-public class Label extends Model<Label> {
+@TableName("code_label")
+public class CodeLabel extends Model<CodeLabel> {
 
     private static final long serialVersionUID=1L;
 
@@ -57,7 +57,7 @@ public class Label extends Model<Label> {
     private Integer choice;
 
     /**
-     * 是否有效 1:有效 0:失效
+     * 启用标记 1:启用 0:失效
      */
     private Integer isValid;
 
@@ -72,9 +72,9 @@ public class Label extends Model<Label> {
     private LocalDateTime updateTime;
 
     /**
-     * 操作员id
+     * 操作员代码
      */
-    private Integer operatorId;
+    private Integer opeeratorId;
 
 
     public Integer getId() {
@@ -157,12 +157,12 @@ public class Label extends Model<Label> {
         this.updateTime = updateTime;
     }
 
-    public Integer getOperatorId() {
-        return operatorId;
+    public Integer getOpeeratorId() {
+        return opeeratorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
-        this.operatorId = operatorId;
+    public void setOpeeratorId(Integer opeeratorId) {
+        this.opeeratorId = opeeratorId;
     }
 
     @Override
@@ -172,7 +172,7 @@ public class Label extends Model<Label> {
 
     @Override
     public String toString() {
-        return "Label{" +
+        return "CodeLabel{" +
         "id=" + id +
         ", pid=" + pid +
         ", name=" + name +
@@ -183,7 +183,7 @@ public class Label extends Model<Label> {
         ", isValid=" + isValid +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
-        ", operatorId=" + operatorId +
+        ", opeeratorId=" + opeeratorId +
         "}";
     }
 }

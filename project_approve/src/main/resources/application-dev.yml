@@ -11,3 +11,8 @@ spring:
 snaker:
   file: flows/demoFlow.snaker
   flowName: leave
+
+deqing:
+  processID: 013835db6ff84046b1254c079a6be5bf
+  reason: 上报项目
+  endAuditRole: 10010004

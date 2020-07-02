@@ -39,5 +39,94 @@
     <sql id="Base_Column_List">
         id, name, status, industry_type, country, region, content, need_land_area, land_type, land_unit, office_area, invest_total, invest_fixed, currency_unit, invest_scale, land_dept_id, relate_dept_dm, other_requires, invest_type, invest_date, report_user_id, master_user_dm, mark, hide_flag, is_valid, report_time, create_time, update_time, operator_id
     </sql>
+    <select id="queryReportDataAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM project_info x
+        WHERE x.is_valid = 1
+        <if test="investUnits !=null and investUnits.size &gt; 0">
+            and invest_scale in
+            <foreach close=")" collection="investUnits" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="projectLabels !=null and projectLabels.size &gt; 0">
+            and id in(select b.project_id from project_label b
+            INNER JOIN code_label d where b.label_id = d.id and b.is_valid = 1 and d.type = 1 and b.label_id in
+            <foreach close=")" collection="projectLabels" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="fields !=null and fields.size &gt; 0">
+            and id in(select b.project_id from project_label b
+            INNER JOIN code_label d where b.label_id = d.id and b.is_valid = 1 and d.type = 2 and b.label_id in
+            <foreach close=")" collection="fields" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="departmentList !=null and departmentList.size &gt; 0">
+            and land_dept_id in
+            <foreach close=")" collection="departmentList" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="statusList !=null and statusList.size &gt; 0">
+            and status in
+            <foreach close=")" collection="statusList" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="projectName != null">
+            and name LIKE CONCAT('%', #{projectName}, '%')
+            or (select xgt.name
+            from project_invest xgt
+            left join project_info xz on xgt.project_id = xz.id
+            where xgt.project_id  = x.id and xz.is_valid = 1 limit 1) like CONCAT('%', #{projectName}, '%')
+        </if>
+        <if test="reportStartTime !=null and reportEndTime !=null ">
+            and report_time BETWEEN #{reportStartTime} AND #{reportEndTime}
+        </if>
+        order by report_time desc
+    </select>
+    <update id="deleteByProjectId">
+        update project_info set is_valid = 0 where id = #{projectId}
+    </update>
+    <select id="countInvestData" resultType="java.lang.Integer">
+        select count(1) from project_info
+        where status = 7 and is_valid = 1
+        and invest_scale = #{investScal}
+        <if test="deptDm != null ">
+            and relate_dept_dm = #{deptDm}
+        </if>
+        <if test="startTime !=null and endTime !=null ">
+            and update_time BETWEEN #{startTime} AND #{endTime}
+        </if>
+    </select>
+    <select id="countSignByDeptDm" resultType="int">
+        select count(1) from project_info
+        where status = 7 and is_valid = 1
+        <if test="industryType != null ">
+            and industry_type = #{industryType}
+        </if>
+        <if test="deptDm != null ">
+            and relate_dept_dm = #{deptDm}
+        </if>
+        <if test="startTime !=null and endTime !=null ">
+            and report_time BETWEEN #{startTime} AND #{endTime}
+        </if>
+    </select>
+    <select id="countSignByXmBq" resultType="int">
+        select count(1) from project_info z
+        INNER JOIN project_label b
+        where z.id = b.project_id and z.status = 7
+        and b.label_id = #{bqdm} and z.is_valid = 1 and b.is_valid = 1
+        <if test="deptDm != null ">
+            and z.relate_dept_dm = #{deptDm}
+        </if>
+        <if test="startTime !=null and endTime !=null ">
+            and z.report_time BETWEEN #{startTime} AND #{endTime}
+        </if>
+    </select>
 
 </mapper>

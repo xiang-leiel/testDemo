@@ -28,9 +28,9 @@ public class InvestParams {
     private String investInfo;
 
 
-    private Integer investNationId;
+    private String country;
 
-    private Integer investProvinceId;
+    private String region;
 
     /**
      * 投资方联系人姓名+职位+联系方式

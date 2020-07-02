@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.quantchi.tianji.service.search.dao.project.LabelMapper">
+<mapper namespace="com.quantchi.tianji.service.search.dao.project.CodeLabelMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.entity.project.Label">
+    <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.entity.project.CodeLabel">
         <id column="id" property="id" />
         <result column="pid" property="pid" />
         <result column="name" property="name" />
@@ -14,12 +14,15 @@
         <result column="is_valid" property="isValid" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
-        <result column="operator_id" property="operatorId" />
+        <result column="opeerator_id" property="opeeratorId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, pid, name, type, level, count_flag, choice, is_valid, create_time, update_time, operator_id
+        id, pid, name, type, level, count_flag, choice, is_valid, create_time, update_time, opeerator_id
     </sql>
+    <select id="selectBqlyAll" resultMap="BaseResultMap">
+        select * from code_label where is_valid = 1
+    </select>
 
 </mapper>

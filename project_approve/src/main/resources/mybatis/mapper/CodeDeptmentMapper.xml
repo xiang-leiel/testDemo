@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quantchi.tianji.service.search.dao.CodeDeptmentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.quantchi.tianji.service.search.entity.CodeDeptment">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="pid" property="pid" />
+        <result column="name" property="name" />
+        <result column="region" property="region" />
+        <result column="is_valid" property="isValid" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="sort" property="sort" />
+        <result column="role" property="role" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, type, pid, name, region, is_valid, create_time, update_time, sort, role
+    </sql>
+    <select id="getParentDeptRole" resultType="java.lang.String">
+        select role from code_deptment where id = (select pid from code_deptment where id = #{deptId})
+    </select>
+    <select id="selectDeptByType" resultMap="BaseResultMap">
+        select * from code_deptment
+        where type = #{type} and is_valid= 1
+        order by create_time asc
+    </select>
+    <select id="selectOneBySjDeptDm" resultType="java.lang.Integer">
+        select id from code_deptment
+        where pid = #{deptDm} and is_valid = 1
+    </select>
+    <select id="selectOneByUserDm" resultType="java.lang.String">
+        select name from code_deptment d
+        INNER JOIN user_info u
+        Where d.id = u.dept_id
+        and u.id = #{userDm}
+    </select>
+    <select id="selectOneBydeptName" resultType="java.lang.Integer">
+        select id from code_deptment
+        where name = #{deptName} and is_valid = 1
+    </select>
+    <select id="selectByType" resultMap="BaseResultMap">
+        select * from code_deptment
+        where type = #{type} and is_valid = 1
+        order by create_time asc
+    </select>
+    <select id="selectByArea" resultMap="BaseResultMap">
+        select * from code_deptment
+        where pid = #{area} and is_valid = 1
+    </select>
+
+</mapper>

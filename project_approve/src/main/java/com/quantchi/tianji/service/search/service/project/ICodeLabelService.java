@@ -1,6 +1,6 @@
 package com.quantchi.tianji.service.search.service.project;
 
-import com.quantchi.tianji.service.search.entity.project.Label;
+import com.quantchi.tianji.service.search.entity.project.CodeLabel;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author leiel
- * @since 2020-06-30
+ * @since 2020-07-01
  */
-public interface ILabelService extends IService<Label> {
+public interface ICodeLabelService extends IService<CodeLabel> {
 
 }

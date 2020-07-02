@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -39,7 +40,7 @@ public class WfOrderProject extends Model<WfOrderProject> {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
 
     public Integer getId() {
@@ -66,11 +67,11 @@ public class WfOrderProject extends Model<WfOrderProject> {
         this.projectId = projectId;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

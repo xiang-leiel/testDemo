@@ -21,7 +21,7 @@ public class XlGenerator {
         //前缀
         String tablePrefix = "";
         //表名
-        String[] table_names = new String[]{"user_role"};
+        String[] table_names = new String[]{"code_region"};
         boolean isNeedController = false;
 
         for(String table_name :table_names){
