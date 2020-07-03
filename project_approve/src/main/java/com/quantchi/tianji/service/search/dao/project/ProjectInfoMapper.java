@@ -36,4 +36,6 @@ public interface ProjectInfoMapper extends BaseMapper<ProjectInfo> {
                         @Param("bqdm") Integer bqdm,
                         @Param("startTime") Date startTime,
                         @Param("endTime") Date endTime);
+
+    List<String> queryReportDataAllDownExcel(ProjectReportDTO projectReportDTO);
 }

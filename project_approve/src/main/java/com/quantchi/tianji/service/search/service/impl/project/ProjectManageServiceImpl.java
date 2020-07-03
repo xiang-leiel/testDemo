@@ -8,6 +8,7 @@ import com.quantchi.tianji.service.search.dao.project.ProjectInfoMapper;
 import com.quantchi.tianji.service.search.dao.project.ProjectInvestMapper;
 import com.quantchi.tianji.service.search.dao.project.ProjectLabelMapper;
 import com.quantchi.tianji.service.search.dao.CodeDeptmentMapper;
+import com.quantchi.tianji.service.search.dao.user.UserInfoMapper;
 import com.quantchi.tianji.service.search.entity.CodeCountry;
 import com.quantchi.tianji.service.search.entity.CodeRegion;
 import com.quantchi.tianji.service.search.entity.project.CodeLabel;
@@ -15,26 +16,39 @@ import com.quantchi.tianji.service.search.entity.project.ProjectInfo;
 import com.quantchi.tianji.service.search.entity.project.ProjectInvest;
 import com.quantchi.tianji.service.search.entity.project.ProjectLabel;
 import com.quantchi.tianji.service.search.entity.CodeDeptment;
-import com.quantchi.tianji.service.search.enums.ErrCode;
-import com.quantchi.tianji.service.search.enums.InvestmentScaleEnum;
+import com.quantchi.tianji.service.search.entity.user.UserInfo;
+import com.quantchi.tianji.service.search.enums.*;
 import com.quantchi.tianji.service.search.model.*;
 import com.quantchi.tianji.service.search.model.vo.ProjectReportVO;
 import com.quantchi.tianji.service.search.model.vo.ProjectVO;
 import com.quantchi.tianji.service.search.model.vo.ReportDataCountVO;
+import com.quantchi.tianji.service.search.service.department.DepartmentService;
 import com.quantchi.tianji.service.search.service.project.ProjectManageService;
+import com.quantchi.tianji.service.search.service.project.ProjectReportDTO;
 import com.quantchi.tianji.service.search.service.project.ProjectReportManageService;
 import com.quantchi.tianji.service.search.service.project.ReportService;
+import com.quantchi.tianji.service.search.utils.CurrencyUtils;
 import com.quantchi.tianji.service.search.utils.DateUtils;
 import com.quantchi.tianji.service.search.utils.ResultUtils;
 import com.quantchi.tianji.service.search.utils.UUIDUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.aspectj.apache.bcel.classfile.Code;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -73,6 +87,12 @@ public class ProjectManageServiceImpl implements ProjectManageService {
 
     @Resource
     private CodeRegionMapper codeRegionMapper;
+
+    @Resource
+    private UserInfoMapper userInfoMapper;
+
+    @Resource
+    private DepartmentService departmentService;
 
     @Override
     public ResultInfo projectSearch(ProjectSearchParams projectSearchParams) {
@@ -328,7 +348,31 @@ public class ProjectManageServiceImpl implements ProjectManageService {
 
     @Override
     public ResultInfo downLoadExcel(ProjectSearchParams projectSearchParams, HttpServletResponse response) {
-        return null;
+
+        ProjectReportDTO projectReportDTO = new ProjectReportDTO();
+
+        //参数封装
+        Boolean signFlag = getaBoolean(projectSearchParams, projectReportDTO);
+
+        //根据查询条件获取相应的项目id
+        List<String> projects = projectInfoMapper.queryReportDataAllDownExcel(projectReportDTO);
+
+        //查询项目信息
+        if(CollectionUtils.isNotEmpty(projects)) {
+
+            List<DownLoadExcelParam> list = new ArrayList<>();
+
+            dataDeal(projects, list);
+            ReportDataCountVO reportDataCountVO = new ReportDataCountVO();
+
+            if(signFlag) {
+                dealBusinessData(reportDataCountVO, projectReportDTO.getReportStartTime(), projectReportDTO.getReportEndTime());
+            }
+            downLoad(reportDataCountVO, list, response, signFlag);
+
+        }
+
+        return ResultUtils.success("success");
     }
 
     @Override
@@ -620,5 +664,251 @@ public class ProjectManageServiceImpl implements ProjectManageService {
         reportDataCountVO.setTalent(talent);
         reportDataCountVO.setShanghaiOverFive(shanghaiOverFive);
         reportDataCountVO.setReportTime(DateUtils.changeFormatDateToSec(new Date()));
+    }
+
+    private void dataDeal(List<String> projects, List<DownLoadExcelParam> list) {
+        for(String projectId : projects) {
+
+            DownLoadExcelParam downLoadExcelParam = new DownLoadExcelParam();
+
+            ProjectInfo projectInfo = projectInfoMapper.selectById(projectId);
+
+            //项目名称
+            downLoadExcelParam.setProjectName(projectInfo.getName());
+
+            List<ProjectInvest> xmGlTzfs = projectInvestMapper.selectByProjectId(projectId);
+
+
+            StringBuffer sbName = new StringBuffer();
+            StringBuffer sbInfo = new StringBuffer();
+            StringBuffer linkName = new StringBuffer();
+            StringBuffer linkMobile = new StringBuffer();
+
+            for(int i = 0; i < xmGlTzfs.size(); i++) {
+
+                ProjectInvest projectInvest = xmGlTzfs.get(i);
+
+                if(xmGlTzfs.size() > 1) {
+                    String num = i+1 + ":";
+                    sbName.append(num + projectInvest.getName());
+                    sbInfo.append(num + projectInvest.getIntroduction());
+                    linkName.append(num + projectInvest.getRelateUserName());
+                    linkMobile.append(num + projectInvest.getRelateUserMobile());
+                }else {
+                    sbName.append(projectInvest.getName());
+                    sbInfo.append(projectInvest.getIntroduction());
+                    linkName.append(projectInvest.getRelateUserName());
+                    linkMobile.append(projectInvest.getRelateUserMobile());
+                }
+
+            }
+
+            //需用地
+            String needLandUnit = "亩";
+            if(projectInfo.getLandUnit() == 2) {
+                needLandUnit = "平方米";
+            }
+
+            String type = NeedLandEnums.getDescByCode(projectInfo.getLandType());
+
+            if(projectInfo.getNeedLandArea() != null) {
+                if(StringUtils.isNotEmpty(type)){
+                    downLoadExcelParam.setNeedLand(projectInfo.getNeedLandArea() != null ? type + projectInfo.getNeedLandArea().setScale(0, BigDecimal.ROUND_UP) + needLandUnit : null);
+                }
+            }
+
+            String unitName = CurrencyUnitEnums.getDescByCode(projectInfo.getCurrencyUnit());
+
+            if(unitName != null && projectInfo.getInvestFixed() != null) {
+                if(projectInfo.getInvestFixed().compareTo(BigDecimal.ZERO) > 0) {
+                    //固定资产投资
+                    downLoadExcelParam.setAssetInvenst( projectInfo.getInvestFixed() != null ? CurrencyUtils.getCurrency( projectInfo.getInvestFixed().setScale(0, BigDecimal.ROUND_UP)) + unitName : null);
+                }
+
+            }
+            if(unitName != null && projectInfo.getInvestTotal() != null) {
+
+                if(projectInfo.getInvestTotal().compareTo(BigDecimal.ZERO) > 0) {
+                    //总投资
+                    downLoadExcelParam.setTotalInvenst(projectInfo.getInvestTotal() != null ? CurrencyUtils.getCurrency(projectInfo.getInvestTotal().setScale(0, BigDecimal.ROUND_UP)) + unitName : null);
+                }
+
+            }
+
+            //投资方名称
+            downLoadExcelParam.setInvestName(sbName != null ? sbName.toString() : null);
+
+            //投资方简介
+            downLoadExcelParam.setInvestInfo(sbInfo != null ? sbInfo.toString() : null);
+            //项目内容
+            downLoadExcelParam.setProjectInfo(projectInfo.getContent());
+
+            //企业联系人
+            downLoadExcelParam.setLinkName(linkName != null ? linkName.toString() : null);
+            //企业联系人手机号
+            downLoadExcelParam.setLinkMobile(linkMobile != null ? linkMobile.toString() : null);
+
+            //跟进人员
+            String reportors = projectReportManageService.dealReportName(projectInfo.getReportUserId());
+            downLoadExcelParam.setStaffName(reportors);
+
+            //首报人
+            UserInfo userInfo = userInfoMapper.selectById(projectInfo.getMasterUserDm());
+            downLoadExcelParam.setMasterName(userInfo.getName());
+
+            //产业类型
+            downLoadExcelParam.setIndustryType(projectInfo.getIndustryType() != null ? IndustyEnum.getDescByCode(projectInfo.getIndustryType()) : null);
+
+            //招商组
+            downLoadExcelParam.setGroup(departmentService.selectDeptByDeptDm(projectInfo.getRelateDeptDm()));
+            if(projectInfo.getLandDeptId() != null) {
+                //拟落户平台
+                downLoadExcelParam.setSuggestLand(departmentService.selectDeptByDeptDm(projectInfo.getLandDeptId()));
+            }
+            list.add(downLoadExcelParam);
+        }
+    }
+
+    private Boolean getaBoolean(ProjectSearchParams projectSearchParams, ProjectReportDTO projectReportDTO) {
+        BeanUtils.copyProperties(projectSearchParams, projectReportDTO);
+
+        //先根据时间、地区及行业领域获取相关数据
+        if(projectSearchParams.getReportStartTime() != null && projectSearchParams.getReportEndTime() != null) {
+            projectReportDTO.setReportStartTime(DateUtils.getDateYYYYMMddHHMMSS(DateUtils.dealTimeData(projectSearchParams.getReportStartTime())));
+            projectReportDTO.setReportEndTime(DateUtils.getDateYYYYMMddHHMMSS(DateUtils.dealTimeData(projectSearchParams.getReportEndTime())));
+        }
+        projectReportDTO.setRegions(projectReportDTO.getRegions());
+
+        Boolean signFlag = false;
+        if(CollectionUtils.isEmpty(projectSearchParams.getStatusList())) {
+            List<Integer> status = new ArrayList<>();
+            status.add(7);
+            projectReportDTO.setStatusList(status);
+            signFlag = true;
+        }
+
+        if(projectSearchParams.getDepartmentId() != null) {
+
+            List<Integer> list = new ArrayList<>();
+            list.add(projectSearchParams.getDepartmentId());
+            projectReportDTO.setDepartmentList(list);
+
+        }
+        return signFlag;
+    }
+
+    private void downLoad(ReportDataCountVO reportDataCountVO, List<DownLoadExcelParam> list, HttpServletResponse response, Boolean signFlag) {
+
+        int value = 1;
+
+        //先定义创建excel表头
+        String[] title={"序号", "项目名称", "投资方", "总投资", "固定资产投资","投资方简介",
+                "项目内容","需用土地","企业联系人","联系方式","招商组/片区","跟进人员/招商员","首报人","产业类型","落地平台"};
+        //创建excel工作簿
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        //创建工作表sheet
+        HSSFSheet sheet=workbook.createSheet("签约数据");
+        HSSFCellStyle style=workbook.createCellStyle();
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        //创建第一行，由于表头字段是固定好的，所以第一行的值单独插入就行了
+        //第一行
+        HSSFRow row=sheet.createRow(0);
+        HSSFCell cell=row.createCell(0);
+        String year = DateUtils.dateFormatYear(new Date());
+        CellRangeAddress region=new CellRangeAddress(0, 0, 0, 14);
+        cell.setCellStyle(style);
+        cell.setCellValue(year+"年德清县驻点招商项目信息采集表");
+        sheet.addMergedRegion(region);
+        //第二行
+        if(signFlag) {
+            row = sheet.createRow(1);
+            cell = row.createCell(0);
+            region=new CellRangeAddress(1, 1, 0, 14);
+            cell.setCellStyle(style);
+            String projectValue = "共在谈项目"+reportDataCountVO.getReportTotal()+"个，其中一产"+reportDataCountVO.getOneIndustry()
+                    +"个，二产"+reportDataCountVO.getTwoIndustry()+"个，三产"+reportDataCountVO.getThreeIndustry()
+                    +"个，人才项目"+reportDataCountVO.getTalent()+"个，沪资5亿元以上项目"+reportDataCountVO.getShanghaiOverFive()+"个";
+            cell.setCellValue(projectValue);
+            sheet.addMergedRegion(region);
+            value++;
+        }
+        //表头
+        HSSFCellStyle listStyle=workbook.createCellStyle();
+        listStyle.setAlignment(HorizontalAlignment.CENTER);
+        listStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        listStyle.setBorderBottom(BorderStyle.THIN);
+        listStyle.setBorderLeft(BorderStyle.THIN);
+        listStyle.setBorderRight(BorderStyle.THIN);
+        listStyle.setBorderTop(BorderStyle.THIN);
+        row=sheet.createRow(value);
+        //插入第一行数据的表头，用到上面的title数组
+        for(int i=0;i<title.length;i++){
+            //createCell(0)表示从左到右第一个空格哈，是依横向次插入的。
+            cell=row.createCell(i);
+            cell.setCellValue(title[i]);
+            cell.setCellStyle(listStyle);
+        }
+        //此时，excel表的表头部分就完成了。
+        List<Map<String, String>> mapList = new ArrayList<>();
+        //list转Map
+        excelListMap(list, mapList);
+        for (int i = 0; i < mapList.size(); i++) {
+            row = sheet.createRow( i + value + 1);
+            Map<String, String> map = mapList.get(i);
+            for (int j = 0 ;j < title.length; j++) {
+                cell = row.createCell(j);
+                if (j == 0 ){
+                    cell.setCellValue(i + 1);
+                }else {
+                    cell.setCellValue(map.get(title[j]));
+                }
+                cell.setCellStyle(listStyle);
+            }
+        }
+        //至此，就完整的插入一行了。
+
+        OutputStream output = null;
+        try {
+            output = response.getOutputStream();
+            //清空缓存
+            response.reset();
+            //定义浏览器响应表头，顺带定义下载名
+            String name = DateUtils.changeFormatDate(new Date()) + "签约数据";
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(name, "UTF-8"));
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "*");
+            //定义下载的类型，标明是excel文件
+            response.setContentType("application/ms-excel");
+            //这时候把创建好的excel写入到输出流
+            workbook.write(output);
+            //养成好习惯，出门记得随手关门
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void excelListMap(List<DownLoadExcelParam> list, List<Map<String, String>> mapList) {
+
+        for(int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new HashMap<>();
+            map.put("项目名称", list.get(i).getProjectName());
+            map.put("投资方", list.get(i).getInvestName());
+            map.put("总投资", list.get(i).getTotalInvenst());
+            map.put("固定资产投资", list.get(i).getAssetInvenst());
+            map.put("投资方简介", list.get(i).getInvestInfo());
+            map.put("项目内容", list.get(i).getProjectInfo());
+            map.put("需用土地", list.get(i).getNeedLand());
+            map.put("企业联系人", list.get(i).getLinkName());
+            map.put("联系方式", list.get(i).getLinkMobile());
+            map.put("招商组/片区", list.get(i).getGroup());
+            map.put("跟进人员/招商员", list.get(i).getStaffName());
+            map.put("首报人", list.get(i).getMasterName());
+            map.put("产业类型", list.get(i).getIndustryType());
+            map.put("落地平台", list.get(i).getSuggestLand());
+            mapList.add(map);
+        }
+
     }
 }

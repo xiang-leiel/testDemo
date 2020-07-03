@@ -31,6 +31,8 @@ public class ProjectManageController {
     /**
      * 项目查询条件显示
      * workFlowId 流程状态 userId 用户id
+     * @param workFlowId
+     * @param userId
      * @return
      */
     @AccessLog(name= "访问日志")
@@ -44,6 +46,7 @@ public class ProjectManageController {
 
     /**
      * 上报页面查询
+     * @param projectSearchParams
      * @return
      */
     @PostMapping("/reportSearch")

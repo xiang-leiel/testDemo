@@ -35,7 +35,7 @@ public class DemoController {
 
     /**
      * 加载.snaker文件 获取流程id 一个项目加载一次就可以
-     *
+     * @return
      */
     @RequestMapping(value = "/load", method= RequestMethod.GET)
     public String loadFile() {

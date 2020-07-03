@@ -128,5 +128,51 @@
             and z.report_time BETWEEN #{startTime} AND #{endTime}
         </if>
     </select>
+    <select id="queryReportDataAllDownExcel" resultType="java.lang.String">
+        SELECT id
+        FROM project_info x
+        WHERE is_valid = 1
+        <if test="statusList !=null and statusList.size &gt; 0">
+            and status in
+            <foreach close=")" collection="statusList" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="investUnits !=null and investUnits.size &gt; 0">
+            and invest_scale in
+            <foreach close=")" collection="investUnits" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="projectLabels !=null and projectLabels.size &gt; 0">
+            and id in(select b.project_id from project_label b
+            INNER JOIN code_label d where b.label_id = d.id and b.is_valid = 1 and d.type = 1 and b.label_id in
+            <foreach close=")" collection="projectLabels" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="fields !=null and fields.size &gt; 0">
+            and id in(select b.project_id from project_label b
+            INNER JOIN code_label d where b.label_id = d.id and b.is_valid = 1 and d.type = 2 and b.label_id in
+            <foreach close=")" collection="fields" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="departmentList !=null and departmentList.size &gt; 0">
+            and relate_dept_dm in
+            <foreach close=")" collection="departmentList" index="index" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="projectName != null">
+            and name LIKE CONCAT('%', #{projectName}, '%')
+        </if>
+        <if test="reportStartTime !=null and reportEndTime !=null ">
+            and report_time BETWEEN #{reportStartTime} AND #{reportEndTime}
+        </if>
+        order by report_time desc
+    </select>
 
 </mapper>
