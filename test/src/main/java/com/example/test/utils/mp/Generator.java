@@ -43,7 +43,7 @@ public class Generator {
                 .setDataSource(
                         // 数据源配置
                         new DataSourceConfig()
-                                .setDriverName("com.mysql.jdbc.Driver")
+                                .setDriverName("com.mysql.jdbc.DriverFactory")
                                 .setUsername("root")
                                 .setPassword("leiel")
                                 .setUrl("jdbc:mysql://47.97.218.94:3306/test?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull"))
@@ -67,9 +67,9 @@ public class Generator {
                         //.setTableFillList(tableFillList)
                         // 自定义 mapper 父类
                         // strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
-                        // 自定义 service 父类
+                        // 自定义 com.example.test.config.service 父类
                         // strategy.setSuperServiceClass("com.baomidou.demo.TestService");
-                        // 自定义 service 实现类父类
+                        // 自定义 com.example.test.config.service 实现类父类
                         // strategy.setSuperServiceImplClass("com.baomidou.demo.TestServiceImpl");
                         // 自定义 controller 父类
                         // strategy.setSuperControllerClass("com.baomidou.demo.TestController");
@@ -97,7 +97,7 @@ public class Generator {
                                 // 这里是控制器包名，默认 web
                                 .setEntity("java.com.example.test.entity." + dir)
                                 .setMapper("java.com.example.test.mapper." + dir)
-                                .setService("java.com.example.test.service." + dir)
+                                .setService("java.com.example.test.com.example.test.config.service." + dir)
                                 .setServiceImpl("java.com.example.test.impl." + dir)
                                 .setXml("resources.mybatis.mapper." + dir)
                                 .setController(null)

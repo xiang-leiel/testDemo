@@ -16,7 +16,7 @@ import java.util.Properties;
 
 public class PropertiesUtils {
 
-    private static final String DEFAULT_PROPERTIES="/application.properties";
+    private static final String DEFAULT_PROPERTIES= "/application.properties";
 
     /**
      * 获取properties属性值
@@ -35,5 +35,9 @@ public class PropertiesUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String getStringTest(String value) {
+        return value;
     }
 }

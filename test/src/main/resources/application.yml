@@ -1,0 +1,27 @@
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.example.test.dao
+server:
+  port: 8339
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: leiel
+    url: jdbc:mysql://47.97.218.94:3306/test?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+username: root
+
+
+#
+##申明es地址
+#elasticsearch:
+#  ip1:
+#  ip2:
+com:
+  example:
+    test:
+      name: 项磊
+      age: 18
+#  ip3:

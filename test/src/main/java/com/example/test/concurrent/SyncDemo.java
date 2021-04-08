@@ -12,6 +12,31 @@ import org.openjdk.jol.info.ClassLayout;
 
 public class SyncDemo {
 
+    /**
+     * demo01和demo02均为对象实例锁
+     */
+    public synchronized void demo01(){};
+
+    public void demo02() {
+
+        synchronized (this) {
+
+        }
+
+    }
+
+    /**
+     * demo03和demo04都属于类锁，即全局锁
+     *
+     */
+    public synchronized static void demo03(){};
+
+    public void demo04() {
+        synchronized (SyncDemo.class) {
+
+        }
+    }
+
     public static void main(String[] args) {
 
         Object lock = new Object();
@@ -39,6 +64,7 @@ public class SyncDemo {
         synchronized (lock){
 
             System.out.println(ClassLayout.parseInstance(lock).toPrintable());
+
         }
 
     }
